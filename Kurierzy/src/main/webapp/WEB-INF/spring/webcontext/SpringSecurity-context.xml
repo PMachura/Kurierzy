@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans 
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+       	   http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+    	   http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+           http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.0.xsd
+           ">
+		
+
+     <!-- To prevent browser's back button on displaying secured resource after logout -->
+    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+        <property name="cacheSeconds" value="0" />
+    </bean>
+   
+    <security:http>
+        <security:intercept-url pattern="/cos" access="isAuthenticated()" />    <!-- TU mozna uzy hasRole(ADMIN) np -->    
+        <security:form-login
+                        login-processing-url="/j_spring_security_check"
+                        default-target-url="/"
+                        authentication-failure-url="/loginfailed"
+                        username-parameter="email"
+			password-parameter="password"
+                        login-page="/login"
+                        always-use-default-target="true"
+                       
+                       />
+        <security:anonymous />
+        <security:http-basic />
+        <security:logout logout-success-url="/" 
+                         logout-url="/logout"   />
+      
+    </security:http> 
+    
+    <security:authentication-manager alias="myAuthManager">
+      <security:authentication-provider>
+	
+        <security:jdbc-user-service data-source-ref="dataSource"
+                   users-by-username-query=
+		    "select email,password,enabled from client where email=?"
+                  authorities-by-username-query=
+		    "select email, 'USER' from client where email = ?"
+		   />
+     <!--   <security:jdbc-user-service data-source-ref="dataSource"
+                   users-by-username-query=
+		    "select username,password,enabled from user where username=?"
+                  authorities-by-username-query=
+		    "select u.username, r.title from role r, user u  where r.id in 
+                    (select us.role_id from users_roles us where us.user_name = u.username )  and  u.username =?"
+		   /> -->
+	</security:authentication-provider>
+    </security:authentication-manager>
+	    
+    <security:global-method-security secured-annotations="enabled" jsr250-annotations="enabled"/>
+  
+    <bean class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler"/>
+	
+    <!-- To prevent browser's back button on displaying secured resource after logout -->
+	
+     <!--
+    <http use-expressions="true">
+        <intercept-url pattern="/**" access="isAuthenticated()"/>  this means all URL in this app will be checked if user is authenticated 
+        <form-login/> We will just use the built-in form login page in Spring 
+        <logout logout-url="/logout" logout-success-url="/index"/>  the logout url we will use in JSP 
+    </http>
+    
+        <authentication-manager>
+            <authentication-provider>
+                 Normally, in this part, you will declare the source of your users
+                But for simplicity, we will hard-code the users. This is very useful while testing setup 
+                <user-service>
+                    <user name="joseph" password="bagnes" authorities="Admin, User"/>
+                    <user name="x" password="x" authorities="User"/>
+                    <user name="bernabe" password="jose" authorities="User"/>
+                </user-service>
+            </authentication-provider>
+        </authentication-manager>
+    -->
+</beans>
