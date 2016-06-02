@@ -50,8 +50,8 @@ public class RequestController {
     @Autowired
     ShipmentService shipmentService;
 
-    @RequestMapping("/make")
-    public String register(Model model) {
+    @RequestMapping("/addByClient")
+    public String addByClient(Model model) {
 
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Client client = clientService.findByEmail(user.getUsername());
@@ -60,8 +60,8 @@ public class RequestController {
         request.setClient(client);
         model.addAttribute("request", request);
         model.addAttribute("cities", cityService.findAll());
-        //  model.addAttribute("client",client);
-        return "request/make";
+        
+        return "request/addByClient";
     }
 
    

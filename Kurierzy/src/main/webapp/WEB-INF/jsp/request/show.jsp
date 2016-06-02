@@ -41,34 +41,35 @@
                                     </p>
                                 </sec:authorize>
                             </div>
+                            
+                            <!-- DANE DOTYCZACE SHIPMENTU      -->
                             <div class ="container">
-                                <sec:authorize access="hasAuthority('CLIENT')"> 
-                                    <h3>
+                                <c:choose>
+                                    <c:when test="${not empty request.shipment}">
+                                        <sec:authorize access="hasAuthority('CLIENT')"> 
+                                            <h3>
 
-                                        <form:form action="myShipment" method="POST">
-                                            <input hidden="true" name="shipmentId" value="${request.shipment.id}"/>
-                                            <input type="submit" value="Shipment ${request.id}" >    
-                                        </form:form>   
+                                                <form:form action="myShipment" method="POST">
+                                                    <input hidden="true" name="shipmentId" value="${request.shipment.id}"/>
+                                                    <input type="submit" value="Shipment ${request.id}" >    
+                                                </form:form>   
 
-                                    </h3> 
-                                </sec:authorize>
-                                <p> Shipment stattus: ${request.shipment.shipmentStatus} </p>
-
-
-                                <p>
-                                    <a
-                                        href=" <spring:url value="/employee/show?id=${request.shipment.employee.id}" /> "> 
-                                        Courier: ${request.shipment.employee.email}
-                                    </a>
-                                </p>
-
-
+                                            </h3> 
+                                        </sec:authorize>
+                                        <p> Shipment stattus: ${request.shipment.shipmentStatus} </p>
+                                        <p>
+                                            <a
+                                                href=" <spring:url value="/employee/show?id=${request.shipment.employee.id}" /> "> 
+                                                Courier: ${request.shipment.employee.email}
+                                            </a>
+                                        </p>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <h3>  No shipment assigned </h3>
+                                    </c:otherwise>
+                                </c:choose>
                             </div>
-
-
-                            <!-- ----------------Sekcja tylko dla pracownika------------------------ -->
-
-                            <!-- ---------------------------------------- -->
+                            <!-- DANE DOTYCZACE SHIPMENTU  KONIEC    -->
                         </div>
                     </div>
                 </div>
