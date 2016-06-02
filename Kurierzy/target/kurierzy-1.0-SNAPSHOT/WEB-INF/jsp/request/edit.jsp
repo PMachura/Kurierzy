@@ -44,9 +44,7 @@
                 </fieldset>
             </form:form>
             
-            <form:form action = "/shipment/show">
-                <form:input hidde="true" id="assignToOrder"
-            </form:form>
+      
         </div>
     </body>
 </html>

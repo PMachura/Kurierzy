@@ -5,7 +5,9 @@
  */
 package model;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -30,19 +32,18 @@ public class Role {
     private String title;
 
     @ManyToMany(mappedBy = "roles")
-    private List<Employee> employees;
+    private Set<Employee> employees = new HashSet<Employee>();
 
-    
-    
-    
-    
-    
-    public List<Employee> getEmployees() {
+    public Set<Employee> getEmployees() {
         return employees;
     }
 
-    public void setEmployees(List<Employee> employees) {
+    public void setEmployees(Set<Employee> employees) {
         this.employees = employees;
+    }
+    
+    public String getIdAsString() {
+        return new Integer(id).toString();
     }
 
     public Integer getId() {

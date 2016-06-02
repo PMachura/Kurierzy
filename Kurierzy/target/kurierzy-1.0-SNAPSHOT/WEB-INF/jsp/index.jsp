@@ -1,6 +1,6 @@
 <%@ include file="/WEB-INF/jsp/includes.jsp"%>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-    "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"   xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
 
 <html>
     <head>
@@ -9,8 +9,12 @@
     </head>
 
     <body>
-        <h1>Welcome to the delivery company</h1><br/>
-        USER<spring:message code="client"/>: <sec:authentication property="name"/> <sec:authentication property="authorities"/><br>
+        <h1><spring:message code="home"/></h1>
+        
+       
+        <spring:message code="home.info"/><br>
+        
+        <sec:authentication property="name"/>    <sec:authentication property="authorities"/><br>
 
 
 
@@ -20,16 +24,31 @@
         </sec:authorize>
 
         <sec:authorize access="isAuthenticated()">
+            
             <a href="logout">Logout</a><br>  
             <a href="request/make"> Make Order</a><br>
-            
+            <a href="client/myRequests">Show your request</a><br>
+            <a href="client/myProfile">Show profile</a><br>
+            <a href="client/editMyProfile">Edit your profile</a><br>
+        
         </sec:authorize>
 
             <a href="request/showAll"> Show all request</a><br>
+            <a href ="shipment/add"> Add shipment</a><br>
             <a href="shipment/show"> Show all shipment</a><br>
+            
+            <a href="employee/add">Add employee</a><br>
+            <a href="employee/showAll">Show employees</a><br>
+            <a href="vehicle/add">Add vehicle</a><br>
+            
+            
+            
+            
+            <br>
+            <p>FOR TESTS</p><br>
             <a href="test/view">Test view</a><br>
-
-        <sec:authorize access="hasRole('ROLE_ADMIN')">  </sec:authorize>
-
+            <a href="test/pushUser">PushUser</a><br>
+        <sec:authorize access="hasAnyAuthority('USER,CLIENT')"> sasaf </sec:authorize>
+        <sec:authorize access="hasRole('CLIENT')"> user </sec:authorize>
     </body>
 </html>

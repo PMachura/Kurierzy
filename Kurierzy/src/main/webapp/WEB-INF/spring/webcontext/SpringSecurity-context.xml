@@ -46,7 +46,7 @@
                    users-by-username-query=
 		    "select email,password,enabled from client where email=?"
                   authorities-by-username-query=
-		    "select email, 'USER' from client where email = ?"
+		    "select email, 'CLIENT' from client where email = ?"
 		   />
      <!--   <security:jdbc-user-service data-source-ref="dataSource"
                    users-by-username-query=

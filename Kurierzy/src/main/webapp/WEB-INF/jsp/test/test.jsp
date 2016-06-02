@@ -20,15 +20,21 @@
 
 
 
-                <div class="form-group" >
+                <div class="form-group"  >
                     <input type ="radio" value="tasty" name="taste"   >Tasty
                     <input type ="radio" value="sweet" name="taste" />Sweet
                     <input type ="radio" value="bitter" name="taste" />Bitter
                 </div>
+                
+                <br>
+                <br>
+                
+                <div class="form-group" >
+                    <input type ="checkbox" value="red" name="color"   >Red
+                    <input type ="checkbox" value="green" name="color" />Green
+                    <input type ="checkbox" value="blue" name="color" />Blue
+                </div>
 
-
-
-                <form:input type="text" placeholder="name" path="name"/><br />
 
 
 
@@ -37,6 +43,15 @@
                     <input type="submit" value="Make an order" />
                 </div>
             </fieldset>
+            <br>
+            <br>
+        </form:form>
+        <form:form action="receiveUser">
+            <input type="hidden" name="user" value="${user}" />
+            <div class="form-group">
+                <input type="submit" class value="ReceiveUser"  class="form-group" />
+            </div>
+            
         </form:form>
     </body>
 </html>

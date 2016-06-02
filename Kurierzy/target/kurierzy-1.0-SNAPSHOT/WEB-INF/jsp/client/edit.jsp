@@ -17,26 +17,29 @@
         <h1>Edit your profile</h1>
         <form:form name="input" method="post" modelAttribute="client" action="update">
             <form:input type="hidden" path="id" />
-            <form:input type="hidden" path="password" />
             <div>
                 <label>Name:</label>
-                <form:input type="text" path="name" />
+                <form:input type="text" path="name" /><form:errors path="name"/>
             </div>
             <div>
                 <label>Surname:</label>
-                <form:input type="text" path="surname"/>
+                <form:input type="text" path="surname"/><form:errors path="surname"/>
             </div>
             <div>
                 <label>Email:</label>
-                <form:input type="text" path="email"/>
+                <form:input type="text" path="email"/><form:errors path="email"/>
+            </div>
+            <div>
+                <label>Password:</label>
+                <form:input type="text" path="password"/><form:errors path="password"/>
             </div>
             <div>
                 <label>Phone:</label>
-                <form:input type="text" path="phoneNumber"/>
+                <form:input type="text" path="phoneNumber"/><form:errors path="phoneNumber"/>
             </div>
             <div>
                 <label>Address:</label>
-                <form:input type="text" path="address"/>
+                <form:input type="text" path="address"/><form:errors path="address"/>
             </div>
             <div>
                 <label>City:</label>

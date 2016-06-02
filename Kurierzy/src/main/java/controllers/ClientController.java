@@ -5,11 +5,14 @@
  */
 package controllers;
 
-
 import java.util.Map;
 import javax.validation.Valid;
 import model.Client;
+import model.Request;
+import model.Shipment;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,99 +21,143 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import repository.CityRepository;
-import repository.ClientRepository;
+
 import service.CityService;
 import service.ClientService;
+import service.RequestService;
+import service.ShipmentService;
+
 /**
  *
  * @author Przemek
  */
-
-
 @Controller
 @RequestMapping("/client")
 public class ClientController {
-    
-    
-     /**
-     * Automatyczne wstrzykniecie clientDAO 
+
+    /**
+     * Automatyczne wstrzykniecie clientDAO
      */
-   
-    
     @Autowired
     ClientService clientService;
-   
+
     @Autowired
     CityService cityService;
-    
-  
-    
+
+    @Autowired
+    RequestService requestService;
+
+    @Autowired
+    ShipmentService shipmentService;
+
     @RequestMapping("/register")
-    public String register(Model model){
-        
-       // ModelAndView model = new ModelAndView("client/register");
+    public String register(Model model) {
+
         model.addAttribute("client", new Client());
         model.addAttribute("cities", cityService.findAll());
         return "client/register";
     }
-    
-    /**
-     * Informacja, że dane przekazywane są metodą post
-     * Validacja po stronie serwera
-     * Efekty bindowania (komunikaty o błędach) przekazane zostają do obiektu bindingResult
-     * @ModelAttribute ustawiamy atrybut w modelu przzez adnotacje
-     */
+
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String save(@ModelAttribute("client") @Valid Client client, BindingResult bindingResult ){
-        
-        /**
-         * W przypadku błędów
-         * przekierowanie za pomocą forward do /client/add.htm
-         */
-        if(bindingResult.hasErrors()){
-           return "client/register"; 
+    public String save(@ModelAttribute("client") @Valid Client client, BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return "client/register";
         }
-        
         clientService.save(client);
-       
-        return "redirect:/client/" +client.getId() +".htm";
-        //return "redirect:/client/getProfileAfterRegistration/"+client.getId()+".htm";
+        return "redirect:/client/profile?id=" + client.getId();
     }
-    
-    
-    
-    /**
-     * !!! TO NIE DZIALA
-     */
-    // Tutaj jest tworzony wzorzec url, jaki będzie przechwytywany przez ta metodę -czyli wszystko po /client/getProfileAfterRegistration/*.htm bedzie trafiac tutaj
-    @RequestMapping(value="/{clientId}")
-    public String getProfile(@PathVariable("clientId") String clientId, Map<String, Object> model){
+
+    @RequestMapping("/myProfile")
+    public String myProfile(Model model) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Client client = clientService.findByEmail(user.getUsername());
+        model.addAttribute("client", client);
+        return "client/profile";
+    }
+
+    @RequestMapping("/editMyProfile")
+    public String editMyProfile(Model model) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Client client = clientService.findByEmail(user.getUsername());
+        model.addAttribute("client", client);
+        model.addAttribute("cities", cityService.findAll());
+        return "client/edit";
+    }
+
+    @RequestMapping("/myRequests")
+    public String showMyRequests(Model model) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Client client = clientService.findByEmail(user.getUsername());
+        model.addAttribute("client", client);
+        return "client/requests";
+    }
+
+    @RequestMapping(value = "/myRequest", method = RequestMethod.POST)
+    public String myRequest(Model model,
+            @RequestParam("requestId") Integer requestId) {
+
+        Request request = requestService.findOne(requestId);
+        model.addAttribute("request", request);
+
+        return "request/show";
+    }
+
+    @RequestMapping(value = "/myShipment", method = RequestMethod.POST)
+    public String myShipment(Model model,
+            @RequestParam("shipmentId") Integer shipmentId) {
+
+        Shipment shipment = shipmentService.findOne(shipmentId);
+        model.addAttribute("shipment",shipment);
         
+        return "shipment/show";
+    }
+
+    @RequestMapping("/update")
+    public String updateMyProfile(@ModelAttribute("client") @Valid Client client, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "client/edit";
+        }
+        clientService.save(client);
+        return "redirect:/client/profile?id=" + client.getId();
+    }
+
+    @RequestMapping("/profile")
+    public String profile(Model model,
+            @RequestParam("id") Integer clientId) {
+
+        Client client = clientService.findOne(clientId);
+        model.addAttribute("client", client);
+        return "client/profile";
+    }
+
+    /*
+    @RequestMapping(value = "/{clientId}")
+    public String getProfile(@PathVariable("clientId") String clientId, Map<String, Object> model) {
+
         Client client = clientService.findOne(Integer.parseInt(clientId));
         model.put("client", client);
         return "client/profile";
     }
-    
-    @RequestMapping(value="/{clientId}/edit" , method = RequestMethod.GET)
-    public String editProfile(@PathVariable("clientId") String clientId, Map<String, Object> model){
-        Client client =clientService.findOne(Integer.parseInt(clientId));   
+  
+    @RequestMapping(value = "/{clientId}/edit", method = RequestMethod.GET)
+    public String editProfile(@PathVariable("clientId") String clientId, Map<String, Object> model) {
+        Client client = clientService.findOne(Integer.parseInt(clientId));
         model.put("client", client);
         model.put("cities", cityService.findAll());
         return "client/edit";
     }
-    
-    @RequestMapping(value="/{clientId}/update")
-    public String getProfile(@ModelAttribute("client") @Valid Client client, BindingResult bindingResult){
-        
-        if(bindingResult.hasErrors()){
-           return "client/edit"; 
+
+    @RequestMapping(value = "/{clientId}/update")
+    public String getProfile(@ModelAttribute("client") @Valid Client client, BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return "client/edit";
         }
-        
+
         clientService.save(client);
-       
-        return "redirect:/client/" +client.getId() +".htm";
+
+        return "redirect:/client/" + client.getId() + ".htm";
     }
+     */
 }

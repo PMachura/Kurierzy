@@ -23,7 +23,7 @@ public class Vehicle {
     private Integer id;
     
     @NotEmpty
-    private String carBrand;
+    private String brand;
 
     public Integer getId() {
         return id;
@@ -33,13 +33,15 @@ public class Vehicle {
         this.id = id;
     }
 
-    public String getCarBrand() {
-        return carBrand;
+    public String getBrand() {
+        return brand;
     }
 
-    public void setCarBrand(String carBrand) {
-        this.carBrand = carBrand;
+    public void setBrand(String brand) {
+        this.brand = brand;
     }
+
+   
     
     
     

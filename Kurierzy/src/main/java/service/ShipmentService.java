@@ -23,5 +23,12 @@ public class ShipmentService {
     public Iterable<Shipment> findAll(){
         return shipmentRepository.findAll();
     }
-
+    
+    public Shipment findOne(Integer id){
+        return shipmentRepository.findOne(id);
+    }
+    
+    public void save(Shipment shipment){
+        shipmentRepository.save(shipment);
+    }
 }

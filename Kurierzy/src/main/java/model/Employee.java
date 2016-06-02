@@ -5,7 +5,11 @@
  */
 package model;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -46,20 +50,21 @@ public class Employee {
     @NotEmpty
     private String password;
 
-    @NotEmpty
-    private String userName;
-
     @ManyToOne
     @JoinColumn(name = "city_id")
     private City city;
 
-    @ManyToMany
-    @JoinTable(name = "Employee_Role", joinColumns = @JoinColumn(name = "employee_email"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private List<Role> roles;
+    @ManyToMany(cascade = {CascadeType.MERGE})
+    @JoinTable(name = "Employee_Role", joinColumns = @JoinColumn(name = "employee_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<Role>();
 
-    @OneToOne
-    @JoinColumn(name = "vehicle_id")
+    @ManyToOne
+    @JoinColumn(nullable = true,name = "vehicle_id" )
     private Vehicle vehicle;
+
+    public String getIdAsString() {
+        return new Integer(id).toString();
+    }
 
     public Integer getEnabled() {
         return enabled;
@@ -69,11 +74,11 @@ public class Employee {
         this.enabled = enabled;
     }
 
-    public List<Role> getRoles() {
+    public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<Role> roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 
@@ -131,14 +136,6 @@ public class Employee {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
     }
 
 }

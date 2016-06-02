@@ -24,7 +24,7 @@
         <section class="container">
             <div class="row">
                 <c:forEach items="${requests}" var="request">
-                    <div class="col-sm-6 col-md-3" style="padding-bottom: 15px">
+                    <div class="col-sm-6 col-md-4" style="padding-bottom: 15px">
                         <div class="thumbnail">
                             <div class="caption">
                                 <h3>${request.id}</h3>
@@ -36,6 +36,7 @@
                                 <p>Addressee Surname: ${request.addresseeSurname} </p>
                                 <p>Addressee Name: ${request.addresseeName} </p>
                                 <p>Weight: ${request.weight} </p>
+                                <p>Shipment: ${request.shipment.id} ${request.shipment.employee.email}
                                 <p>
                                     <a
                                         href=" <spring:url value="/request/edit?id=${request.id}" /> "

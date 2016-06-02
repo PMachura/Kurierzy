@@ -35,13 +35,9 @@
     	
     <!--aktywacja springowego cache -->
    <mvc:annotation-driven />
-   
+   <tx:annotation-driven/>
      
-  
-   
- 
-
-    <!-- Data source -->
+ <!-- Data source -->
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" >
         <property name="driverClassName" value="${jdbc.driver}" /> <!-- to jest zmapowanie wartosci do tych ktore sa okreslone w pliku system.properties -->
         <property name="url" value="${jdbc.url}" />
@@ -66,8 +62,5 @@
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="entityManagerFactory" />
     </bean>
-   
-    
-    
-    
+        
 </beans>
