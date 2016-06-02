@@ -5,7 +5,6 @@
  */
 package controllers;
 
-
 import javax.validation.Valid;
 import model.Client;
 import model.Request;
@@ -60,14 +59,73 @@ public class RequestController {
         request.setClient(client);
         model.addAttribute("request", request);
         model.addAttribute("cities", cityService.findAll());
-        
+
         return "request/addByClient";
     }
 
-   
-    
+    @RequestMapping("/addByEmployee")
+    public String addByEmployee(@RequestParam(value = "requestId", required = false) Integer requestId,
+            @RequestParam(value = "shipmentId", required = false) Integer shipmentId,
+            @RequestParam(value = "clientId", required = false) Integer clientId,
+            Model model) {
+
+        Request request;
+        if (requestId != null) {
+            request = requestService.findOne(requestId);
+        } else {
+            request = new Request();
+        }
+
+        if(shipmentId != null){
+            Shipment shipment = shipmentService.findOne(shipmentId);
+            request.setShipment(shipment);
+        }
+        if(clientId != null){
+            Client client = clientService.findOne(clientId);
+            request.setClient(client);
+        }
+        
+        Iterable<RequestStatus> requestStatuses = requestStatusService.findAll();
+        
+        model.addAttribute("requestStatuses",requestStatuses);
+        model.addAttribute("request", request);
+        model.addAttribute("cities", cityService.findAll());
+
+        return "request/addByEmployee";
+    }
+
+    @RequestMapping("/assignShipment")
+    public String assignShipment(@RequestParam(value = "requestId", required = true) Integer requestId,
+            @RequestParam(value = "shipmentId", required = false) Integer shipmentId,
+            @RequestParam(value = "clientId", required = false) Integer clientId,
+            Model model) {
+
+        model.addAttribute("requestId", requestId);
+        model.addAttribute("shipmentId", shipmentId);
+        model.addAttribute("clientId", clientId);
+
+        return "shipment/assignToOrder";
+    }
+
+    @RequestMapping("/assignClient")
+    public String assignClient(@RequestParam(value = "requestId", required = true) Integer requestId,
+            @RequestParam(value = "shipmentId", required = false) Integer shipmentId,
+            @RequestParam(value = "clientId", required = false) Integer clientId,
+            Model model) {
+
+        Iterable<Client> clients = clientService.findAll();
+
+        model.addAttribute("clients", clients);
+        model.addAttribute("requestId", requestId);
+        model.addAttribute("shipmentId", shipmentId);
+        model.addAttribute("clientId", clientId);
+
+        return "client/assignToOrder";
+    }
+
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String save(@ModelAttribute("request") @Valid Request order, BindingResult bindingResult) {
+    public String save(@ModelAttribute("request")
+            @Valid Request order, BindingResult bindingResult) {
 
         /**
          * W przypadku błędów przekierowanie za pomocą forward do
@@ -93,20 +151,19 @@ public class RequestController {
     }
 
     @RequestMapping("/edit")
-    public String edit(Model model, 
-                       @RequestParam("id") Integer requestId,
-                       @RequestParam(value="shipmentId", required=false) Integer shipmentId) {
+    public String edit(Model model,
+            @RequestParam("id") Integer requestId,
+            @RequestParam(value = "shipmentId", required = false) Integer shipmentId) {
 
         Request request = requestService.findOne(requestId);
         Iterable<RequestStatus> requestStatuses = requestStatusService.findAll();
         Iterable<Shipment> shipments = shipmentService.findAll();
-        
-        if(shipmentId!=null){
-            Shipment shipment = shipmentService.findOne(shipmentId);      
+
+        if (shipmentId != null) {
+            Shipment shipment = shipmentService.findOne(shipmentId);
             request.setShipment(shipment);
         }
 
-        
         model.addAttribute("request", request);
         model.addAttribute("cities", cityService.findAll());
         model.addAttribute("requestStatuses", requestStatuses);
@@ -114,20 +171,6 @@ public class RequestController {
 
         return "request/make";
 
-    }
-
-    @RequestMapping("/assignShipment")
-    public String assignShipment(@ModelAttribute("request") Request request,
-            Model model) {
-
-        Iterable<Shipment> shipments = shipmentService.findAll();
-        model.addAttribute("shipments", shipments);
-        model.addAttribute("request", request);
-        if (request != null) {
-            model.addAttribute("assignToOrder", true);
-        }
-
-        return "shipment/show";
     }
 
 }

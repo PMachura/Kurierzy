@@ -32,20 +32,35 @@
             <div class="row">
                 <div class="col-md-4 col-md-offset-4">
                     <div class="panel panel-default">
-                        <c:if test="${edit}" >
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Shipment</h3>
-                            </div>
-                            <div class="panel-body">
-                                <form:form action = "assignShipment" modelAttribute="request"> 
-                                    <form:hidden path = "id"/>
-                                    <div class ="form-group">
-                                        <input class="btn btn-lg btn-success btn-block" type="submit" value="linkShipment" >
-                                    </div>
-                                </form:form>
-                            </div>
 
-                        </c:if>
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Client</h3>
+                        </div>
+                        <div class="panel-body">
+                            <form:form action = "assignClient"> 
+                                <input hidden="true" name="shipmentId" value="${request.shipment.id}"/>
+                                <input hidden="true" name="clientId"   value="${request.client.id}"/>
+                                <input hidden="true" name="requestId" value="${request.id}"/>
+                                <div class ="form-group">
+                                    <input class="btn btn-lg btn-success btn-block" type="submit" value="assignClient" >
+                                </div>
+                            </form:form>
+                        </div>
+
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Shipment</h3>
+                        </div>
+                        <div class="panel-body">
+                            <form:form action = "assignShipment"> 
+                                <input hidden="true" name="shipmentId" value="${request.shipment.id}"/>
+                                <input hidden="true" name="clientId"   value="${request.client.id}"/>
+                                <input hidden="true" name="requestId" value="${request.id}"/>
+                                <div class ="form-group">
+                                    <input class="btn btn-lg btn-success btn-block" type="submit" value="assignShipment" >
+                                </div>
+                            </form:form>
+                        </div>
+
 
                         <div class="panel-heading">
                             <h3 class="panel-title">Order</h3>
@@ -55,7 +70,15 @@
 
                                 <fieldset>
                                     <form:hidden path="id" />
-                                    <form:hidden path="client.id" />
+                                    <c:choose>
+                                        <c:when test="${not empty request.client}">
+                                            <label>Cient: ${request.client.email}</label>
+                                            <form:hidden path="client.id" /> 
+                                        </c:when>
+                                        <c:otherwise>
+                                            <h3>  No client </h3>
+                                        </c:otherwise>
+                                    </c:choose>
                                     <div class="form-group">
                                         <form:input path="destinationAddress" placeholder="Destination Address" required="true" /><form:errors path="destinationAddress"/><br/>
                                     </div>
@@ -71,17 +94,18 @@
                                     <div class="form-group">
                                         <form:input path="weight" placeholder="weight" type="text" required="true" /><form:errors path="weight"/><br/>
                                     </div>
-                                    <c:if test="${edit}" >
-                                        <c:if test="${not empty request.shipment}">
-                                            <div class="form-group">
-                                                <label>Shipment: ${request.shipment.id}</label>
-                                                <form:hidden readonly="true" path="shipment.id"/>
-                                            </div>
-                                        </c:if>
-                                        <div class ="form-group">
-                                            <form:select path="requestStatus.id" items="${requestStatuses}" itemValue="id" itemLabel="title" />
-                                        </div>
-                                    </c:if>
+                                    <div class ="form-group">
+                                        <form:select path="requestStatus.id" items="${requestStatuses}" itemValue="id" itemLabel="title" />
+                                    </div>
+                                    <c:choose>
+                                        <c:when test="${not empty request.shipment}">
+                                            <label>Shipment: ${request.shipment.id}</label>
+                                            <form:hidden path="shipment.id" /> 
+                                        </c:when>
+                                        <c:otherwise>
+                                            <h3>  No shipment assigned </h3>
+                                        </c:otherwise>
+                                    </c:choose>
                                     <input class="btn btn-lg btn-success btn-block" type="submit" value="Save">
                                 </fieldset>
                             </form:form>

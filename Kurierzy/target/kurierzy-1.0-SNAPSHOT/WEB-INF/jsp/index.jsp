@@ -38,6 +38,8 @@
             <a href="employee/add">Add employee</a><br>
             <a href="employee/showAll">Show employees</a><br>
             <a href="vehicle/add">Add vehicle</a><br>
+                
+            <a href="request/addByEmployee"> Add request</a><br>
             
             
             
