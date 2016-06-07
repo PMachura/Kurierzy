@@ -59,13 +59,15 @@ public class ClientController {
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String save(@ModelAttribute("client") @Valid Client client, BindingResult bindingResult) {
+    public String save(@ModelAttribute("client") @Valid Client client, BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
-            return "client/register";
+            model.addAttribute("cities", cityService.findAll());
+            return "/client/register";
         }
         clientService.save(client);
-        return "redirect:/client/profile?id=" + client.getId();
+//        return "redirect:/client/profile?id=" + client.getId();
+        return "redirect:/";
     }
 
     @RequestMapping("/myProfile")
