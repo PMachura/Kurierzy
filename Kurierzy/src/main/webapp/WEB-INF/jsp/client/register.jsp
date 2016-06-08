@@ -15,7 +15,7 @@
         <section>
             <div class="jumbotron">
                 <div class="container">
-                    <p>Pleas enter a datail of order and submit</p>
+                    <p>Pleas enter a datail and submit</p>
                 </div>
             </div>
         </section>
