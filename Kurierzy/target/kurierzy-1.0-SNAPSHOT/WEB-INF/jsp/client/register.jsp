@@ -1,22 +1,35 @@
-<!-- wszystko co bedzie zaczynalo sie od form bedzie dotyczylo tego tabliba, sprawia to, ?e u?ywane s? tagi spring MVC -->
+
+
+<%-- 
+    Document   : make
+    Created on : 2016-05-21, 14:03:16
+    Author     : Przemek
+--%>
+
 <%@ include file="/WEB-INF/jsp/includes.jsp"%>
 
-<!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
-        <title>Rejestracja</title>
     </head>
     <body>
-        <div class="container">
-            <div class="row header">
-                <div class="col-sm-8 col-sm-offset-2">
-                    <h1>Rejestracja</h1>
-                </div>             
+        <section>
+            <div class="jumbotron">
+                <div class="container">
+                    <p>Pleas enter a datail of order and submit</p>
+                </div>
             </div>
+        </section>
+        <div class="container">
             <div class="row">
-                <div class="col-sm-8 col-sm-offset-2">
-                    <form:form modelAttribute="client" method="POST" action="save" cssStyle="form-horizontal" >
+                <div class="col-md-5 col-md-offset-4">
+                    <div class="panel panel-default">
+                      
+
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Register</h3>
+                        </div>
+                        <div class="panel-body">
+                           <form:form modelAttribute="client" method="POST" action="save" cssStyle="form-horizontal" >
 
                         <form:hidden path="id"/>
 
@@ -92,12 +105,19 @@
 
                         <div class="form-group row">
                             <div class="col-sm-12">
-                                <button type="submit" class="button btn btn-default float-right">Zapisz</button>
+                                <button type="submit" class="btn btn-lg btn-success btn-block">Zapisz</button>
                             </div>     
                         </div>
                     </form:form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </body>
-</html>
+
+
+
+
+
+

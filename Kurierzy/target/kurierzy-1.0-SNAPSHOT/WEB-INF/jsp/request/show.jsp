@@ -29,9 +29,10 @@
                                 <h3>ID ${request.id}</h3>
                                 <p>Addressee Surname: ${request.addresseeSurname} </p>
                                 <p>Addressee Name: ${request.addresseeName} </p>
-                                <p>Destination Address: ${request.city.name} ${request.destinationAddress} </p>
-                                <p>Status: ${request.requestStatus.title}                         
+                                <p>Destination Address: ${request.city.name} ${request.destinationAddress} </p>                                                      
                                 <p>Weight: ${request.weight} </p>
+                                <p>Price: ${request.price} </p>
+                                <p>Status: ${request.requestStatus.title} 
                                 <sec:authorize access="hasAuthority('EMPLOYEE')">
                                     <p>
                                         <a
@@ -51,12 +52,12 @@
 
                                                 <form:form action="myShipment" method="POST">
                                                     <input hidden="true" name="shipmentId" value="${request.shipment.id}"/>
-                                                    <input type="submit" value="Shipment ${request.id}" >    
+                                                    <input type="submit" value="Shipment ${request.shipment.id}" >    
                                                 </form:form>   
 
                                             </h3> 
                                         </sec:authorize>
-                                        <p> Shipment stattus: ${request.shipment.shipmentStatus} </p>
+                                        <p> Shipment stattus: ${request.shipment.shipmentStatus.title} </p>
                                         <p>
                                             <a
                                                 href=" <spring:url value="/employee/show?id=${request.shipment.employee.id}" /> "> 

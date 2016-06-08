@@ -62,6 +62,10 @@ public class Employee {
     @JoinColumn(nullable = true,name = "vehicle_id" )
     private Vehicle vehicle;
 
+    public Employee(){
+        enabled = 1;
+    }
+    
     public String getIdAsString() {
         return new Integer(id).toString();
     }

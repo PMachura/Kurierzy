@@ -47,14 +47,14 @@
 		    "select email,password,enabled from client where email=?"
                   authorities-by-username-query=
 		    "select email, 'CLIENT' from client where email = ?"
-		   />
-     <!--   <security:jdbc-user-service data-source-ref="dataSource"
+		   /> 
+        <security:jdbc-user-service data-source-ref="dataSource"
                    users-by-username-query=
-		    "select username,password,enabled from user where username=?"
+		    "select email,password,enabled from employee where email=?"
                   authorities-by-username-query=
-		    "select u.username, r.title from role r, user u  where r.id in 
-                    (select us.role_id from users_roles us where us.user_name = u.username )  and  u.username =?"
-		   /> -->
+		    "select e.email, r.title from role r, employee e  where r.id in 
+                    (select er.role_id from employee_role er where er.employee_id = e.id ) and e.email = ?"
+		   /> 
 	</security:authentication-provider>
     </security:authentication-manager>
 	    

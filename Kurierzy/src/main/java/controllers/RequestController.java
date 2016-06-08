@@ -172,7 +172,7 @@ public class RequestController {
         model.addAttribute("requestStatuses", requestStatuses);
         model.addAttribute("edit", true);
 
-        return "request/make";
+        return "request/addByEmployee";
 
     }
 

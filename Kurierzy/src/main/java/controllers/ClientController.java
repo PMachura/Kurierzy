@@ -70,6 +70,15 @@ public class ClientController {
         return "redirect:/";
     }
 
+    @RequestMapping("/update")
+    public String updateMyProfile(@ModelAttribute("client") @Valid Client client, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "client/edit";
+        }
+        clientService.save(client);
+        return "redirect:/";
+    }
+
     @RequestMapping("/myProfile")
     public String myProfile(Model model) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -110,18 +119,9 @@ public class ClientController {
             @RequestParam("shipmentId") Integer shipmentId) {
 
         Shipment shipment = shipmentService.findOne(shipmentId);
-        model.addAttribute("shipment",shipment);
-        
-        return "shipment/show";
-    }
+        model.addAttribute("shipment", shipment);
 
-    @RequestMapping("/update")
-    public String updateMyProfile(@ModelAttribute("client") @Valid Client client, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "client/edit";
-        }
-        clientService.save(client);
-        return "redirect:/client/profile?id=" + client.getId();
+        return "shipment/show";
     }
 
     @RequestMapping("/profile")
