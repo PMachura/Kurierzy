@@ -100,6 +100,9 @@ public class RequestController {
             @RequestParam(value = "clientId", required = false) Integer clientId,
             Model model) {
 
+        Iterable<Shipment> shipments = shipmentService.findAll();
+        
+        model.addAttribute("shipments",shipments);
         model.addAttribute("requestId", requestId);
         model.addAttribute("shipmentId", shipmentId);
         model.addAttribute("clientId", clientId);
