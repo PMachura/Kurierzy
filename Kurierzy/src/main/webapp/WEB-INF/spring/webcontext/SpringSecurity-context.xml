@@ -42,19 +42,22 @@
     <security:authentication-manager alias="myAuthManager">
       <security:authentication-provider>
 	
-        <security:jdbc-user-service data-source-ref="dataSource"
+            <security:jdbc-user-service data-source-ref="dataSource"
                    users-by-username-query=
 		    "select email,password,enabled from client where email=?"
                   authorities-by-username-query=
 		    "select email, 'CLIENT' from client where email = ?"
-		   /> 
-        <security:jdbc-user-service data-source-ref="dataSource"
+            />  
+       </security:authentication-provider>
+       
+       <security:authentication-provider>
+            <security:jdbc-user-service data-source-ref="dataSource"
                    users-by-username-query=
 		    "select email,password,enabled from employee where email=?"
                   authorities-by-username-query=
 		    "select e.email, r.title from role r, employee e  where r.id in 
                     (select er.role_id from employee_role er where er.employee_id = e.id ) and e.email = ?"
-		   /> 
+            /> 
 	</security:authentication-provider>
     </security:authentication-manager>
 	    
