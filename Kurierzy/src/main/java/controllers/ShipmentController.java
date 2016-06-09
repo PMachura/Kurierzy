@@ -34,7 +34,7 @@ public class ShipmentController {
 
     @Autowired
     EmployeeService employeeService;
-    
+
     @Autowired
     ShipmentStatusService shipmentStatusService;
 
@@ -51,6 +51,7 @@ public class ShipmentController {
 
         Shipment shipment;
         if (shipmentId == null) {
+            System.out.println("@@@@@@@@@@@ PUSTO");
             shipment = new Shipment();
             if (employeeId != null) {
                 Employee employee = employeeService.findOne(employeeId);
@@ -65,39 +66,51 @@ public class ShipmentController {
         }
 
         Iterable<ShipmentStatus> shipmentStatuses = shipmentStatusService.findAll();
-        
+
         model.addAttribute("shipment", shipment);
-        model.addAttribute("shipmentStatuses",shipmentStatuses);
+        model.addAttribute("shipmentStatuses", shipmentStatuses);
         return "shipment/add";
 
     }
 
     @RequestMapping("/assignEmployee")
-    public String assignEmployee(@ModelAttribute("shipment") Shipment shipment,
-            Model model) {
+    public String assignEmployee(@RequestParam(value = "shipmentId", required = false) Integer shipmentId,
+                                 @RequestParam(value = "employeeId", required = false) Integer employeeId,
+                                 Model model) {
 
         Iterable<Employee> employees = employeeService.findAll();
 
-        System.out.println("@@@@@@ SHIPMENT ID: " + shipment.getId());
-        
+      
         model.addAttribute("employees", employees);
-        model.addAttribute("shipment", shipment);
-        model.addAttribute("assignToShipment", true);
+        model.addAttribute("shipmentId", shipmentId);
+        model.addAttribute("employeeId", employeeId);
 
-        return "employee/showAll";
+        return "employee/assignToShipment";
 
     }
     
+    @RequestMapping("/edit")
+    public String edit(@RequestParam("id") Integer shipmentId,
+                       Model model){
+        
+        Shipment shipment = shipmentService.findOne(shipmentId);
+        Iterable<ShipmentStatus> shipmentStatuses = shipmentStatusService.findAll();
+        model.addAttribute("shipmentStatuses", shipmentStatuses);
+        
+        model.addAttribute("shipment",shipment);
+        return "shipment/add";
+    }
+            
     @RequestMapping("/save")
     public String save(@ModelAttribute("shipment") @Valid Shipment shipment,
-                       BindingResult bindingResult,
-                       Model model){
-        if(bindingResult.hasErrors()){
+            BindingResult bindingResult,
+            Model model) {
+        if (bindingResult.hasErrors()) {
             return "shipment/add";
         }
-        
-       shipmentService.save(shipment);
-        
+
+        shipmentService.save(shipment);
+
         return "redirect:/";
     }
 }

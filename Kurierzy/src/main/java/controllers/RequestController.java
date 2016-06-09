@@ -6,6 +6,7 @@
 package controllers;
 
 import javax.validation.Valid;
+import model.City;
 import model.Client;
 import model.Request;
 import model.RequestStatus;
@@ -155,20 +156,14 @@ public class RequestController {
 
     @RequestMapping("/edit")
     public String edit(Model model,
-            @RequestParam("id") Integer requestId,
-            @RequestParam(value = "shipmentId", required = false) Integer shipmentId) {
+                       @RequestParam("id") Integer requestId) {
 
         Request request = requestService.findOne(requestId);
         Iterable<RequestStatus> requestStatuses = requestStatusService.findAll();
-        Iterable<Shipment> shipments = shipmentService.findAll();
-
-        if (shipmentId != null) {
-            Shipment shipment = shipmentService.findOne(shipmentId);
-            request.setShipment(shipment);
-        }
+        Iterable<City> cities = cityService.findAll();
 
         model.addAttribute("request", request);
-        model.addAttribute("cities", cityService.findAll());
+        model.addAttribute("cities", cities);
         model.addAttribute("requestStatuses", requestStatuses);
         model.addAttribute("edit", true);
 

@@ -29,26 +29,29 @@
                         </div>
                         <div class="panel-body">
                             <form:form action = "assignEmployee" modelAttribute="shipment"> 
-                                <form:hidden path = "id"/>
-                                <label title="${shipment.id}" >ID</label>
-                                <div class ="form-group">
-                                    <input class="btn btn-lg btn-success btn-block" type="submit" value="Assign employee" >
-                                </div>
+                                <input hidden="true" name="shipmentId" value="${shipment.id}" /> 
+                                <input hidden="true" name="employeeId" value="${shipment.employee.id}" />
+
+                                <input class="btn btn-lg btn-success btn-block" type="submit" value="Assign employee" >
+
                             </form:form>
                         </div>
+                    </div>
+
+                    <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h3 class="panel-title">Shipment</h3>
+                            <h3 class="panel-title">Shipment ${shipment.id}</h3>
                         </div>
                         <div class="panel-body">
                             <form:form modelAttribute="shipment" method="POST" action="save">
                                 <form:hidden path="id"/>
                                 <fieldset>
                                     <div class="form-group">
-                                        <form:select path="shipmentStatus.id" items="${shipmentStatuses}" itemValue="id" itemLabel="title" />
+                                        Status:<form:select path="shipmentStatus.id" items="${shipmentStatuses}" itemValue="id" itemLabel="title" />
                                     </div>
                                     <c:if test="${not empty shipment.employee}">
                                         <div class="form-group">
-                                            <label>Employee: ${shipment.employee.id}</label>
+                                            Employee: ${shipment.employee.email}
                                             <form:hidden readonly="true" path="employee.id"/>
                                         </div>
                                     </c:if>

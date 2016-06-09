@@ -41,15 +41,7 @@
                             <td>${employee.email}</td>
                             <td>${employee.city.name}</td>
 
-                            <c:if test="${assignToShipment}">
-                                <td>
-                                    <form:form action="/Kurierzy/shipment/add">
-                                        <input value="${shipment.id}" name="shipmentId">
-                                        <input value="${employee.id}" name="employeeId">
-                                        <input class="btn btn-lg btn-success btn-block" type="submit" value="AssignToShipment">
-                                    </form:form>
-                                </td>
-                            </c:if>
+                           
                         </tr>
                     </c:forEach>
                 </tbody>

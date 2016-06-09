@@ -46,7 +46,9 @@
                                 </div>
                             </form:form>
                         </div>
-
+                    </div>
+                    
+                    <div class="panel panel-default">
                         <div class="panel-heading">
                             <h3 class="panel-title">Shipment</h3>
                         </div>
@@ -60,8 +62,9 @@
                                 </div>
                             </form:form>
                         </div>
-
-
+                    </div>
+                    
+                    <div class="panel panel-default">
                         <div class="panel-heading">
                             <h3 class="panel-title">Order</h3>
                         </div>
@@ -76,7 +79,7 @@
                                             <form:hidden path="client.id" /> 
                                         </c:when>
                                         <c:otherwise>
-                                            <h3>  No client </h3>
+                                            <p>  No client </p>
                                         </c:otherwise>
                                     </c:choose>
                                     <div class="form-group">
@@ -103,7 +106,7 @@
                                             <form:hidden path="shipment.id" /> 
                                         </c:when>
                                         <c:otherwise>
-                                            <h3>  No shipment assigned </h3>
+                                            <p>  No shipment assigned </p>
                                         </c:otherwise>
                                     </c:choose>
                                     <input class="btn btn-lg btn-success btn-block" type="submit" value="Save">

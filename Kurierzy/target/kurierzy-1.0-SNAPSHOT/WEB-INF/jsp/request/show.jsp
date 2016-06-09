@@ -57,7 +57,7 @@
 
                                             </h3> 
                                         </sec:authorize>
-                                        <p> Shipment stattus: ${request.shipment.shipmentStatus.title} </p>
+                                        <p> Shipment status: ${request.shipment.shipmentStatus.title} </p>
                                         <p>
                                             <a
                                                 href=" <spring:url value="/employee/show?id=${request.shipment.employee.id}" /> "> 

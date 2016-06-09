@@ -43,6 +43,8 @@ public class Shipment {
     @OneToMany(mappedBy = "shipment")
     private List<Request> requests = new ArrayList<Request>(0);
 
+   
+    
     public List<Request> getRequest() {
         return requests;
     }

@@ -31,17 +31,10 @@
                             <p>Status: ${shipment.shipmentStatus.title}
                             <p>
                                 <a
-                                    href=" <spring:url value="/employee/edit?id=${shipment.id}" /> "
+                                    href=" <spring:url value="/shipment/edit?id=${shipment.id}" /> "
                                     class="btn btn-primary"> Edit
                                 </a>
                             </p>
-                            <c:if test="${assignToOrder}">
-                                <form:form action="/Kurierzy/request/edit?id=${request.id}">
-                                    <input value="${shipment.id}" name="shipmentId">
-                                    <input class="btn btn-lg btn-success btn-block" type="submit" value="Assign">
-                                </form:form>
-
-                            </c:if>
 
                         </div>
                     </div>

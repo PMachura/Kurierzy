@@ -1,0 +1,8 @@
+Rejestracja klientow do zerwisu         ok
+Edycja konta klienta przez klienta      ok
+Logowanie uzytkownikow    		ok
+Logowanie pracownikow     		ok
+Skladanie zamowienia przez klienta 	ok
+skladajac zamowienie tworzymy obiekt klasy Request(klasa nie mog³a nazywaæ siê Order, bo to nazwa zastrze¿ona hibernata) Podajemy adres, miasto, imie, nazwisko adresata oraz wage paczki. Zamówienie po z³o¿eniu ma domyœlny status 'pending'
+Wyswietlanie wszystkich zlozonych wczeœniej zamówieñ ok 
+Wyswietlanie szczegó³owych danych konkretnego zamówienia ok

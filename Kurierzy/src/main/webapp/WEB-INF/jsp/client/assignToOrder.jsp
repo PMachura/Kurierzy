@@ -56,7 +56,7 @@
             <form:form action="/Kurierzy/request/addByEmployee">
                 <input hidden="true" value="${shipmentId}" name="shipmentId">
                 <input hidden="true" value="${requestId}" name="requestId">
-                <input hidden="true" value="${client.id}" name="clientId">
+                <input hidden="true" value="${clientId}" name="clientId">
                 <div class="input-prepend">
                     
                     <button class="btn btn-lg btn-default btn-block" type="submit"> 

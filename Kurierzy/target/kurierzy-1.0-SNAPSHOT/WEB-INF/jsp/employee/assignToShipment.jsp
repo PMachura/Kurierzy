@@ -41,11 +41,33 @@
                             <td>${employee.email}</td>
                             <td>${employee.city.name}</td>
 
-                           
+
+                            <td>
+                                <form:form action="/Kurierzy/shipment/add" >
+                                    <input hidden="true" value="${shipmentId}" name ="shipmentId">
+                                    <input hidden="true" value="${employee.id}" name="employeeId">
+                                    <input class="btn-primary " type="submit" value="AssignToShipment">
+                                </form:form>
+                            </td>
+
                         </tr>
                     </c:forEach>
                 </tbody>
             </table>
+            <form:form action="/Kurierzy/shipment/add">
+                <input hidden ="true" value="${shipmentId}" name="shipmentId">
+                <input hidden= "true" value="${employeeId}" name="employeeId">
+                <div class="input-prepend">
+
+                    <button class="btn btn-lg btn-default btn-block" type="submit"> 
+                        <span class="glyphicon  glyphicon-arrow-left"> </span> 
+                        Backt to the previous page
+
+                    </button>
+
+                </div>
+
+            </form:form>
         </div>
 
     </body>
