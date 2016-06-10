@@ -6,6 +6,7 @@
 package controllers;
 
 import javax.validation.Valid;
+import model.City;
 import model.Employee;
 import model.Shipment;
 import model.ShipmentStatus;
@@ -16,6 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import service.CityService;
 
 import service.EmployeeService;
 import service.ShipmentService;
@@ -37,6 +39,9 @@ public class ShipmentController {
 
     @Autowired
     ShipmentStatusService shipmentStatusService;
+
+    @Autowired
+    CityService cityService;
 
     @RequestMapping("/show")
     public String showAll(Model model) {
@@ -65,8 +70,10 @@ public class ShipmentController {
             }
         }
 
+        Iterable<City> cities = cityService.findAll();
         Iterable<ShipmentStatus> shipmentStatuses = shipmentStatusService.findAll();
 
+        model.addAttribute("cities", cities);
         model.addAttribute("shipment", shipment);
         model.addAttribute("shipmentStatuses", shipmentStatuses);
         return "shipment/add";
@@ -75,12 +82,11 @@ public class ShipmentController {
 
     @RequestMapping("/assignEmployee")
     public String assignEmployee(@RequestParam(value = "shipmentId", required = false) Integer shipmentId,
-                                 @RequestParam(value = "employeeId", required = false) Integer employeeId,
-                                 Model model) {
+            @RequestParam(value = "employeeId", required = false) Integer employeeId,
+            Model model) {
 
         Iterable<Employee> employees = employeeService.findAll();
 
-      
         model.addAttribute("employees", employees);
         model.addAttribute("shipmentId", shipmentId);
         model.addAttribute("employeeId", employeeId);
@@ -88,19 +94,21 @@ public class ShipmentController {
         return "employee/assignToShipment";
 
     }
-    
+
     @RequestMapping("/edit")
     public String edit(@RequestParam("id") Integer shipmentId,
-                       Model model){
-        
+            Model model) {
+
         Shipment shipment = shipmentService.findOne(shipmentId);
         Iterable<ShipmentStatus> shipmentStatuses = shipmentStatusService.findAll();
+        Iterable<City> cities = cityService.findAll();
+
         model.addAttribute("shipmentStatuses", shipmentStatuses);
-        
-        model.addAttribute("shipment",shipment);
+        model.addAttribute("shipment", shipment);
+        model.addAttribute("cities", cities);
         return "shipment/add";
     }
-            
+
     @RequestMapping("/save")
     public String save(@ModelAttribute("shipment") @Valid Shipment shipment,
             BindingResult bindingResult,

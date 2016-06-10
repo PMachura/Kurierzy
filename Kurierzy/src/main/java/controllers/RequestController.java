@@ -154,9 +154,9 @@ public class RequestController {
         return "request/showAll";
     }
 
-    @RequestMapping("/edit")
+    @RequestMapping(value = "/edit", method = RequestMethod.POST)
     public String edit(Model model,
-                       @RequestParam("id") Integer requestId) {
+                       @RequestParam("requestId") Integer requestId) {
 
         Request request = requestService.findOne(requestId);
         Iterable<RequestStatus> requestStatuses = requestStatusService.findAll();
@@ -169,6 +169,12 @@ public class RequestController {
 
         return "request/addByEmployee";
 
+    }
+    
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public String delete(@RequestParam("requestId") Integer requestId){
+        requestService.delete(requestId);
+        return "messages/operationSuccessful";
     }
 
 }

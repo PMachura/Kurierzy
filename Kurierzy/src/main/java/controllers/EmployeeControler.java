@@ -61,13 +61,12 @@ public class EmployeeControler {
         binder.registerCustomEditor(Set.class, "roles", new CustomCollectionEditor(Set.class) {
             @Override
             protected Object convertElement(Object element) {
-              
+
                 Integer id = null;
 
                 if (element instanceof String && !((String) element).equals("")) {
                     //From the JSP 'element' will be a String
 
-             
                     try {
                         id = Integer.parseInt((String) element);
                     } catch (NumberFormatException e) {
@@ -83,8 +82,6 @@ public class EmployeeControler {
             }
         });
 
-
-       
     }
 
     @RequestMapping("/add")
@@ -100,32 +97,60 @@ public class EmployeeControler {
         model.addAttribute("vehicles", vehicles);
         model.addAttribute("employee", employee);
 
-      
         return "employee/add";
     }
 
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String save(@ModelAttribute("employee") @Valid Employee employee, BindingResult bindingResult) {
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public String delete(@RequestParam("employeeId") Integer employeeId) {
+        employeeService.delete(employeeId);
+        return "messages/operationSuccessful";
+    }
+
+    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    public String edit(@RequestParam("employeeId") Integer employeeId,
+                       Model model) {
+        
+        Iterable<Vehicle> vehicles = vehicleService.findNotUsed();
+        Iterable<Role> rolesAvaliable = roleService.findAll();
+        Iterable<City> cities = cityService.findAll();
+        Employee employee = employeeService.findOne(employeeId);
+
+        model.addAttribute("cities", cities);
+        model.addAttribute("rolesAvaliable", rolesAvaliable);
+        model.addAttribute("vehicles", vehicles);
+        model.addAttribute("employee", employee);
+
+        return "employee/add";
+    }
+
+
+@RequestMapping(value ="shipments", method = RequestMethod.POST)
+public String shipments(@RequestParam("employeeId")Integer employeeId, Model model){
+   Employee employee = employeeService.findOne(employeeId);
+   model.addAttribute("employee", employee);
+   return "employee/shipments";
+}
+    
+@RequestMapping(value = "/save", method = RequestMethod.POST)
+        public String save(@ModelAttribute("employee")
+        @Valid Employee employee, BindingResult bindingResult) {
 
         employeeService.save(employee);
         return "redirect:/";
     }
     
    @RequestMapping("/showAll")
-   public String showAll(Model model){
+        public String showAll(Model model){
        
        model.addAttribute("employees",employeeService.findAll());
        return "employee/showAll";
    }
    
    @RequestMapping("/show")
-   public String show(@RequestParam("id") Integer requestId, Model model){
+        public String show(@RequestParam("id") Integer requestId, Model model){
        Employee employee = employeeService.findOne(requestId);
        model.addAttribute("employee",employee);
        return "employee/show";
    }
 
 }
-
-
-

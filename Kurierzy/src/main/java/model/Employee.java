@@ -19,6 +19,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -61,6 +62,9 @@ public class Employee {
     @ManyToOne
     @JoinColumn(nullable = true,name = "vehicle_id" )
     private Vehicle vehicle;
+    
+    @OneToMany(mappedBy = "employee")
+    private List<Shipment> shipments = new ArrayList<Shipment>(0);
 
     public Employee(){
         enabled = 1;
@@ -142,4 +146,13 @@ public class Employee {
         this.password = password;
     }
 
+    public List<Shipment> getShipments() {
+        return shipments;
+    }
+
+    public void setShipments(List<Shipment> shipments) {
+        this.shipments = shipments;
+    }
+
+    
 }

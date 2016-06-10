@@ -29,8 +29,6 @@ public class Shipment {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    
-
     @ManyToOne
     @JoinColumn(name = "employee_id")
     private Employee employee;
@@ -38,13 +36,34 @@ public class Shipment {
     @ManyToOne
     @JoinColumn(name = "status_id")
     private ShipmentStatus shipmentStatus;
-    
 
     @OneToMany(mappedBy = "shipment")
     private List<Request> requests = new ArrayList<Request>(0);
 
-   
-    
+    @ManyToOne
+    @JoinColumn(name = "current_city_id")
+    private City currentCity;
+
+    @ManyToOne
+    @JoinColumn(name = "next_city_id")
+    private City nextCity;
+
+    public City getCurrentCity() {
+        return currentCity;
+    }
+
+    public void setCurrentCity(City currentCity) {
+        this.currentCity = currentCity;
+    }
+
+    public City getNextCity() {
+        return nextCity;
+    }
+
+    public void setNextCity(City nextCity) {
+        this.nextCity = nextCity;
+    }
+
     public List<Request> getRequest() {
         return requests;
     }
@@ -52,8 +71,6 @@ public class Shipment {
     public void setRequest(List<Request> request) {
         this.requests = request;
     }
-
-    
 
     public Employee getEmployee() {
         return employee;
@@ -63,8 +80,6 @@ public class Shipment {
         this.employee = employee;
     }
 
- 
-    
     public Integer getId() {
         return id;
     }
@@ -88,7 +103,5 @@ public class Shipment {
     public void setRequests(List<Request> requests) {
         this.requests = requests;
     }
-
-    
 
 }

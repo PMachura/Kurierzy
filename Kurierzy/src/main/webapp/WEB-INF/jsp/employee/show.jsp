@@ -30,14 +30,39 @@
                                 <p>Email: ${employee.email} </p>
                                 <p>Name: ${employee.name} </p>
                                 <p>Surname: ${employee.surname} </p>
-                                <p>City: ${employee.city.name}                         
+                                <p>City: ${employee.city.name}</p>
+
+                                Roles:    <c:forEach items="${employee.roles}" var="role">
+                                    ${role.title}
+                                </c:forEach>    
+
                                 <p></p>
+
+                                <!-- Mozliwosc edycji, usuwania tylko dla okreslonego pracownika -->
                                 <sec:authorize access="hasAuthority('MANAGER')">
-                                    <p>
-                                        <a
-                                            href=" <spring:url value="/employee/edit?id=${request.id}" /> "
-                                            class="btn btn-primary"> Edit
-                                        </a>
+                                 
+                                        <form:form action = "shipments" method="POST"> 
+                                            <div class ="form-group">
+                                                <input hidden="true" name="employeeId" value="${employee.id}"/>
+                                                <input class="btn btn-lg btn-success btn-block" type="submit" value="SHIPMENTS" >
+                                            </div>
+                                        </form:form>
+                                  
+                                    
+                                        <form:form action = "edit" method="POST"> 
+                                            <div class ="form-group">
+                                                <input hidden="true" name="employeeId" value="${employee.id}"/>
+                                                <input class="btn btn-lg btn-success btn-block" type="submit" value="EDIT" >
+                                            </div>
+                                        </form:form>
+                                
+                        
+                                        <form:form action = "delete" method="POST"> 
+                                            <div class ="form-group">
+                                                <input hidden="true" name="employeeId" value="${employee.id}"/>
+                                                <input class="btn btn-lg btn-success btn-block" type="submit" value="DELETE" >
+                                            </div>
+                                        </form:form>
                                     </p>
                                 </sec:authorize>
                             </div>

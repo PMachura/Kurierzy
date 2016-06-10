@@ -27,21 +27,26 @@
                     <div class="col-sm-6 col-md-4" style="padding-bottom: 15px">
                         <div class="thumbnail">
                             <div class="caption">
-                                <h3>${request.id}</h3>
-                                
-                                
-                                <p>Client: ${request.client.email} </p>
+                                <h3>Id: ${request.id}</h3>
+
+
+                                <p>Client: <a href=" <spring:url value="/client/show?id=${request.client.id}" /> ">${request.client.email}</a></p>
                                 <p>Status: ${request.requestStatus.title}
                                 <p>Destination Address: ${request.city.name} ${request.destinationAddress} </p>
                                 <p>Addressee Surname: ${request.addresseeSurname} </p>
                                 <p>Addressee Name: ${request.addresseeName} </p>
                                 <p>Weight: ${request.weight} </p>
-                                <p>Shipment: ${request.shipment.id} ${request.shipment.employee.email}
+                                <p>Shipment: <a href=" <spring:url value="/shipment/show?id=${request.shipment.id}" /> ">${request.shipment.id}</a></p>
+                                <p>Employee: <a href=" <spring:url value="/employee/show?id=${request.shipment.employee.id}" /> ">${request.shipment.employee.email}</a></p>
                                 <p>
-                                    <a
-                                        href=" <spring:url value="/request/edit?id=${request.id}" /> "
-                                        class="btn btn-primary"> Edit
-                                    </a>
+                                    <form:form action="edit" method="POST">
+                                        <input hidden="true" name="requestId" value="${request.id}"/>
+                                        <input type="submit" class="btn btn-lg btn-success btn-block" value="Edit"  >    
+                                    </form:form> 
+                                    <form:form action="delete" method="POST">
+                                        <input hidden="true" name="requestId" value="${request.id}"/>
+                                        <input type="submit" class="btn btn-lg btn-success btn-block" value="Delete"  >    
+                                    </form:form> 
                                 </p>
 
                             </div>

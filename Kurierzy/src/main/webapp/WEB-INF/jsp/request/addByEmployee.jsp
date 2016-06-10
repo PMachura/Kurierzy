@@ -47,7 +47,7 @@
                             </form:form>
                         </div>
                     </div>
-                    
+
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h3 class="panel-title">Shipment</h3>
@@ -63,7 +63,7 @@
                             </form:form>
                         </div>
                     </div>
-                    
+
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h3 class="panel-title">Order</h3>
@@ -75,13 +75,20 @@
                                     <form:hidden path="id" />
                                     <c:choose>
                                         <c:when test="${not empty request.client}">
-                                            <label>Cient: ${request.client.email}</label>
-                                            <form:hidden path="client.id" /> 
+                                            <div>
+                                                <a
+                                                    href=" <spring:url value="/client/show?id=${request.client.id}" /> "
+                                                    >Client: ${request.client.email}
+                                                </a>
+                                                <form:hidden path="client.id" /> 
+
+                                            </div>
                                         </c:when>
                                         <c:otherwise>
                                             <p>  No client </p>
                                         </c:otherwise>
                                     </c:choose>
+                                    <br>
                                     <div class="form-group">
                                         <form:input path="destinationAddress" placeholder="Destination Address" required="true" /><form:errors path="destinationAddress"/><br/>
                                     </div>
@@ -102,22 +109,29 @@
                                     </div>
                                     <c:choose>
                                         <c:when test="${not empty request.shipment}">
-                                            <label>Shipment: ${request.shipment.id}</label>
+                                            <div></div>
+                                            <a
+                                                href=" <spring:url value="/shipment/show?id=${request.shipment.id}" /> "
+                                                >Shipment: ${request.shipment.id}
+                                            </a>
+                                            </div>
                                             <form:hidden path="shipment.id" /> 
-                                        </c:when>
-                                        <c:otherwise>
-                                            <p>  No shipment assigned </p>
-                                        </c:otherwise>
-                                    </c:choose>
-                                    <input class="btn btn-lg btn-success btn-block" type="submit" value="Save">
-                                </fieldset>
-                            </form:form>
-                        </div>
+                                    
+                                </c:when>
+                                <c:otherwise>
+                                    <p>  No shipment assigned </p>
+                                </c:otherwise>
+                            </c:choose>
+                           
+                            <input class="btn btn-lg btn-success btn-block" type="submit" value="Save">
+                            </fieldset>
+                        </form:form>
                     </div>
                 </div>
             </div>
         </div>
-    </body>
+    </div>
+</body>
 
 
 

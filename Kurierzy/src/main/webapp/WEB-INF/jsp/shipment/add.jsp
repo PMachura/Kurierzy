@@ -47,7 +47,15 @@
                                 <form:hidden path="id"/>
                                 <fieldset>
                                     <div class="form-group">
-                                        Status:<form:select path="shipmentStatus.id" items="${shipmentStatuses}" itemValue="id" itemLabel="title" />
+                                        <div>
+                                            Status:<form:select path="shipmentStatus.id" items="${shipmentStatuses}" itemValue="id" itemLabel="title" />
+                                        </div>
+                                        <div>
+                                            CurrentCity:<form:select path="currentCity.id" items="${cities}" itemValue="id" itemLabel="name" />
+                                        </div>
+                                        <div>
+                                            NextCity: <form:select path="nextCity.id" items="${cities}" itemValue="id" itemLabel="name" />
+                                        </div>
                                     </div>
                                     <c:if test="${not empty shipment.employee}">
                                         <div class="form-group">

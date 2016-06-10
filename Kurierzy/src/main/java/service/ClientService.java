@@ -43,4 +43,7 @@ public class ClientService {
         return clientRepository.findAllByName(name);
     }
            
+    public void delete(Integer id){
+       clientRepository.delete(id);
+    }
 }

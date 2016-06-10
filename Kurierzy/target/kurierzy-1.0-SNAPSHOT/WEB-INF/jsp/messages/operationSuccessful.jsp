@@ -13,6 +13,6 @@
     </head>
     <body>
         <h1><spring:message code="messagess.successful"/> </h1>
-        <a href="http://localhost:8084/Kurierzy/home">Back to the main page</a>
+        <a href="http://localhost:8084/Kurierzy/">Back to the main page</a>
     </body>
 </html>

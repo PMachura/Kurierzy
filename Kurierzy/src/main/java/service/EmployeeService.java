@@ -34,4 +34,8 @@ public class EmployeeService {
     public Employee findOne(Integer id){
         return employeeRepository.findOne(id);
     }
+    
+    public void delete(Integer id){
+        employeeRepository.delete(id);
+    }
 }

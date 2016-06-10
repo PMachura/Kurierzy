@@ -27,7 +27,9 @@
 
                             <div class ="container">
                                 <h3>ID ${shipment.id}</h3>
-                                <p> Shipment status: ${request.shipment.shipmentStatus.title} </p>
+                                <p> Shipment status: ${shipment.shipmentStatus.title} </p>
+                                <p> Current City: ${shipment.currentCity.name} </p>
+                                <p> Next City: ${shipment.nextCity.name} </p>
                                 <p>
                                     <a
                                         href=" <spring:url value="/employee/show?id=${shipment.employee.id}" /> "> 

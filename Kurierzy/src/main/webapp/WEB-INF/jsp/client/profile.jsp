@@ -32,7 +32,7 @@
                                 <div> Address: ${client.address} </div>
                                 <div> City: ${client.city.name} </div>
 
-                                <div><a href="editMyProfile">Edit your profile</a><br/></div>
+                                <div><a href="editMyProfile">Edit profile</a><br/></div>
                                 <div><a href="http://localhost:8084/Kurierzy/">Back to the main page</a></div>
                             </div>
                         </div>

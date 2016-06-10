@@ -7,6 +7,7 @@ package controllers;
 
 import java.util.Map;
 import javax.validation.Valid;
+import model.City;
 import model.Client;
 import model.Request;
 import model.Shipment;
@@ -124,15 +125,30 @@ public class ClientController {
         return "shipment/show";
     }
 
-    @RequestMapping("/profile")
+    @RequestMapping("/show")
     public String profile(Model model,
             @RequestParam("id") Integer clientId) {
 
         Client client = clientService.findOne(clientId);
         model.addAttribute("client", client);
-        return "client/profile";
+        return "client/show";
     }
 
+    @RequestMapping(value = "edit", method = RequestMethod.POST)
+    public String edit(@RequestParam("clientId") Integer clientId, Model model){
+        Client client = clientService.findOne(clientId);
+        Iterable<City> cities = cityService.findAll();
+        
+        model.addAttribute("cities",cities);
+        model.addAttribute("client", client);
+        return "client/edit";
+    }
+    
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public String delete(@RequestParam("clientId") Integer clientId){
+        clientService.delete(clientId);
+        return "messages/operationSuccessful";
+    }
     /*
     @RequestMapping(value = "/{clientId}")
     public String getProfile(@PathVariable("clientId") String clientId, Map<String, Object> model) {

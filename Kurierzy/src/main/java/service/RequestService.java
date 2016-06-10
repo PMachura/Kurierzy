@@ -32,4 +32,8 @@ public class RequestService {
     public Request findOne(Integer id){
         return requestRepository.findOne(id);
     }
+    
+    public void delete(Integer id){
+        requestRepository.delete(id);
+    }
 }
