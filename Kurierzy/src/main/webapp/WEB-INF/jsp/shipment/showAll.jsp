@@ -36,6 +36,7 @@
                                     href=" <spring:url value="/shipment/edit?id=${shipment.id}" /> "
                                     class="btn btn-primary"> Edit
                                 </a>
+                                    
                             </p>
 
                         </div>
