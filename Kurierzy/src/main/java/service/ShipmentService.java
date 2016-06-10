@@ -31,4 +31,8 @@ public class ShipmentService {
     public void save(Shipment shipment){
         shipmentRepository.save(shipment);
     }
+    
+    public void delete(Integer id){
+        shipmentRepository.delete(id);
+    }
 }

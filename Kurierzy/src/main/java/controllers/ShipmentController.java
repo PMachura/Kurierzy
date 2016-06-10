@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import service.CityService;
 
@@ -43,7 +44,7 @@ public class ShipmentController {
     @Autowired
     CityService cityService;
 
-    @RequestMapping("/show")
+    @RequestMapping("/showAll")
     public String showAll(Model model) {
         model.addAttribute("shipments", shipmentService.findAll());
         return "shipment/showAll";
@@ -56,7 +57,6 @@ public class ShipmentController {
 
         Shipment shipment;
         if (shipmentId == null) {
-            System.out.println("@@@@@@@@@@@ PUSTO");
             shipment = new Shipment();
             if (employeeId != null) {
                 Employee employee = employeeService.findOne(employeeId);
@@ -95,8 +95,8 @@ public class ShipmentController {
 
     }
 
-    @RequestMapping("/edit")
-    public String edit(@RequestParam("id") Integer shipmentId,
+    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    public String edit(@RequestParam("shipmentId") Integer shipmentId,
             Model model) {
 
         Shipment shipment = shipmentService.findOne(shipmentId);
@@ -120,5 +120,20 @@ public class ShipmentController {
         shipmentService.save(shipment);
 
         return "redirect:/";
+    }
+
+    @RequestMapping("/delete")
+    public String delete(@RequestParam("shipmentId") Integer shipmentId) {
+        shipmentService.delete(shipmentId);
+        return "messages/operationSuccessful";
+    }
+
+    @RequestMapping("/show")
+    public String show(@RequestParam("id") Integer shipmentId, Model model) {
+
+        Shipment shipment = shipmentService.findOne(shipmentId);
+        model.addAttribute("shipment", shipment);
+
+        return "shipment/show";
     }
 }

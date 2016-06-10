@@ -28,4 +28,5 @@ public class RoleService {
     public Role findOne(Integer id){
         return roleRepository.findOne(id);
     }
+    
 }

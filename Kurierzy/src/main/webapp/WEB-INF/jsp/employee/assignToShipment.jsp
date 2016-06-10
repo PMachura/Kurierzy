@@ -35,7 +35,7 @@
                 <tbody>
                     <c:forEach items="${employees}" var="employee">
                         <tr>
-                            <td><a href="show?id=${employee.id}">${employee.id}</a></td>
+                            <td><a href="/Kurierzy/employee/show?id=${employee.id}">${employee.id}</a></td>
                             <td>${employee.name}</td>
                             <td>${employee.surname}</td>
                             <td>${employee.email}</td>

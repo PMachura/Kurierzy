@@ -36,13 +36,15 @@
                                         Courier: ${shipment.employee.email}
                                     </a>
                                 </p> 
-                                <sec:authorize access="hasAuthority('EMPLOYEE')">
-                                    <p>
-                                        <a
-                                            href=" <spring:url value="/shipment/edit?id=${shipment.id}" /> "
-                                            class="btn btn-primary"> Edit
-                                        </a>
-                                    </p>
+                                <sec:authorize access="hasAuthority('MANAGER')">
+                                    <form:form action="edit" method="POST">
+                                        <input hidden="true" name="shipmentId" value="${shipment.id}"/>
+                                        <input type="submit" class="btn btn-lg btn-success btn-block" value="Edit"  >    
+                                    </form:form> 
+                                    <form:form action="delete" method="POST">
+                                        <input hidden="true" name="shipmentId" value="${shipment.id}"/>
+                                        <input type="submit" class="btn btn-lg btn-success btn-block" value="DELETE"  >    
+                                    </form:form> 
                                 </sec:authorize>
                             </div>
                         </div>
