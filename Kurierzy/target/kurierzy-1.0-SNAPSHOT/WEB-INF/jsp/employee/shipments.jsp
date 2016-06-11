@@ -15,29 +15,22 @@
         <section>
             <div class="jumbotron">
                 <div class="container">
-                    <h1>Shipments</h1>
-                    <p>All shipments</p>
+                    <h1>${employee.email} shipments</h1>
+                    <p></p>
                 </div>
             </div>
         </section>
 
         <section class="container">
-            <c:forEach items="${shipments}" var="shipment">
+            <c:forEach items="${employee.shipments}" var="shipment">
                 <div class="col-sm-6 col-md-3" style="padding-bottom: 15px">
                     <div class="thumbnail">
                         <div class="caption">
-                            <h3>Id: ${shipment.id}</h3>
-                            <p>Employee: <a href="/Kurierzy/employee/show?id=${shipment.employee.id}"> ${shipment.employee.email} </a> </p>
+                            <h3><a href=" <spring:url value="/shipment/show?id=${shipment.id}" /> " target="_blank">Id: ${shipment.id}</a></h3>
                             <p>Status: ${shipment.shipmentStatus.title}
                             <p> Current City: ${shipment.currentCity.name} </p>
                             <p> Next City: ${shipment.nextCity.name} </p>
-                            <p>
-                                <form:form action="edit" >
-                                    <input hidden="true" value="${shipment.id}" name ="shipmentId">
-                                    <input class="btn-primary " type="submit" value="EDIT">
-                                </form:form>
-                                    
-                            </p>
+
 
                         </div>
                     </div>

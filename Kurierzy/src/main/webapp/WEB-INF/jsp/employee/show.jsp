@@ -41,7 +41,7 @@
                                 <!-- Mozliwosc edycji, usuwania tylko dla okreslonego pracownika -->
                                 <sec:authorize access="hasAuthority('MANAGER')">
                                  
-                                        <form:form action = "shipments" method="POST"> 
+                                        <form:form action = "shipments" method="GET"> 
                                             <div class ="form-group">
                                                 <input hidden="true" name="employeeId" value="${employee.id}"/>
                                                 <input class="btn btn-lg btn-success btn-block" type="submit" value="SHIPMENTS" >

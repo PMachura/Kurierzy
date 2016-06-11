@@ -38,4 +38,8 @@ public class EmployeeService {
     public void delete(Integer id){
         employeeRepository.delete(id);
     }
+    
+    public Employee findByEmail(String email){
+        return employeeRepository.findBeEmail(email);
+    }
 }

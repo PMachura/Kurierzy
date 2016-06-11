@@ -22,5 +22,5 @@ public interface ClientRepository extends CrudRepository<Client, Integer> {
     List<Client> findAllByName(String name);
     
     @Query("Select c from Client c where c.email like :email")
-    public Client findByEmail(@Param("email")String name);
+    public Client findByEmail(@Param("email")String email);
 }

@@ -7,7 +7,9 @@ package repository;
 
 import javax.transaction.Transactional;
 import model.Employee;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -21,4 +23,6 @@ public interface EmployeeRepository extends CrudRepository<Employee,Integer> {
     
 //    @Query("Select c from Client c where c.email like :email")
 //    public Role findRoleById(@Param("email")String name);
+    @Query("Select e from Employee e where e.email like :email")
+    public Employee findBeEmail(@Param("email")String email);
 }

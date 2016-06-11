@@ -19,6 +19,7 @@ import org.hibernate.validator.internal.engine.groups.Group;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomCollectionEditor;
 import org.springframework.beans.propertyeditors.CustomNumberEditor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -33,7 +34,7 @@ import service.CityService;
 import service.EmployeeService;
 import service.RoleService;
 import service.VehicleService;
-
+import org.springframework.security.core.userdetails.User;
 /**
  *
  * @author Przemek
@@ -124,7 +125,7 @@ public class EmployeeControler {
     }
 
 
-@RequestMapping(value ="shipments", method = RequestMethod.POST)
+@RequestMapping(value ="shipments", method = RequestMethod.GET)
 public String shipments(@RequestParam("employeeId")Integer employeeId, Model model){
    Employee employee = employeeService.findOne(employeeId);
    model.addAttribute("employee", employee);
@@ -151,6 +152,14 @@ public String shipments(@RequestParam("employeeId")Integer employeeId, Model mod
        Employee employee = employeeService.findOne(requestId);
        model.addAttribute("employee",employee);
        return "employee/show";
+   }
+        
+   @RequestMapping("/myShipments")
+   public String myShipments(Model model){
+       User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+       Employee employee = employeeService.findByEmail(user.getUsername());
+       model.addAttribute("employee",employee);
+       return "employee/shipments";
    }
 
 }

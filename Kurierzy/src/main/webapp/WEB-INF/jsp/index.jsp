@@ -29,9 +29,10 @@
         </sec:authorize>
 
         <br><p>Dla pracownikow, narazie nie ma weryfikacji</p>
+            <a href="employee/myShipments"> MyShipments</a><br>
             <a href="request/showAll"> Show all request</a><br>
             <a href ="shipment/add"> Add shipment</a><br>
-            <a href="shipment/show"> Show all shipment</a><br>
+            <a href="shipment/showAll"> Show all shipment</a><br>
             
             <a href="employee/add">Add employee</a><br>
             <a href="employee/showAll">Show employees</a><br>

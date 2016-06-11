@@ -27,15 +27,15 @@
                     <div class="thumbnail">
                         <div class="caption">
                             <h3>Id: ${shipment.id}</h3>
-                            <p>Employee: <a href="employee/show?id=${shipment.employee.id}"> ${shipment.employee.email} </a> </p>
+                            <p>Employee: <a href="/Kurierzy/employee/show?id=${shipment.employee.id}"> ${shipment.employee.email} </a> </p>
                             <p>Status: ${shipment.shipmentStatus.title}
                             <p> Current City: ${shipment.currentCity.name} </p>
                             <p> Next City: ${shipment.nextCity.name} </p>
                             <p>
-                                <a
-                                    href=" <spring:url value="/shipment/edit?id=${shipment.id}" /> "
-                                    class="btn btn-primary"> Edit
-                                </a>
+                                <form:form action="edit" >
+                                    <input hidden="true" value="${shipment.id}" name ="shipmentId">
+                                    <input class="btn-primary " type="submit" value="EDIT">
+                                </form:form>
                                     
                             </p>
 
