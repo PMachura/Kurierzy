@@ -1,15 +1,9 @@
-<%-- 
-    Document   : show
-    Created on : 2016-05-22, 11:08:44
-    Author     : Przemek
---%>
-
 <%@ include file="/WEB-INF/jsp/includes.jsp"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Shipments</title>
     </head>
     <body>
         <section>
@@ -34,15 +28,19 @@
                             <p>
                                 <form:form action="edit" >
                                     <input hidden="true" value="${shipment.id}" name ="shipmentId">
-                                    <input class="btn-primary " type="submit" value="EDIT">
+                                    <button class="btn btn-success btn-block" type="submit" value="EDIT">Edit</button>
                                 </form:form>
-                                    
                             </p>
-
                         </div>
                     </div>
-                </div>
+                </div>          
             </c:forEach>
+            <a href="/Kurierzy/">
+                <button class="btn btn-lg btn-default btn-block"> 
+                    <span class="glyphicon  glyphicon-arrow-left"> </span> 
+                    Backt to the previous page
+                </button>
+            </a>
         </section>
     </body>
 </html>

@@ -1,15 +1,9 @@
-<%-- 
-    Document   : add
-    Created on : 2016-05-28, 11:23:22
-    Author     : Przemek
---%>
-
 <%@ include file="/WEB-INF/jsp/includes.jsp"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Add Vehicle</title>
     </head>
    <body>
         <section>
@@ -32,13 +26,19 @@
                                     <form:hidden path="id"/>
                                 <fieldset>
                                     <div class="form-group">
-                                        <form:input path="brand" placeholder="Brand" required="true" /><form:errors path="brand"/><br/>
+                                        <form:input path="brand" placeholder="Brand" required="true" cssClass="form-control" /><form:errors path="brand"/><br/>
                                     </div>
                                     <input class="btn btn-lg btn-success btn-block" type="submit" value="Save">
                                 </fieldset>
                             </form:form>
                         </div>
                     </div>
+                    <a href="/Kurierzy/">
+                                <button class="btn btn-lg btn-default btn-block"> 
+                                <span class="glyphicon  glyphicon-arrow-left"> </span> 
+                                Backt to the previous page
+                                </button>
+                            </a>
                 </div>
             </div>
         </div>

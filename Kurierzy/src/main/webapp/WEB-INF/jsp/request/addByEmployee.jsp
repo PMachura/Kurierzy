@@ -1,29 +1,21 @@
-<%-- 
-    Document   : make
-    Created on : 2016-05-21, 14:03:16
-    Author     : Przemek
---%>
-
 <%@ include file="/WEB-INF/jsp/includes.jsp"%>
-
 <html>
     <head>
-
-
-        <title>Produkty</title>
+        <title>Orders</title>
     </head>
     <body>
+        <div class="custom-container">
         <section>
             <div class="jumbotron">
                 <div class="container">
                     <c:choose>
                         <c:when test="${edit}">
                             <h1><spring:message code="request.edit"/><br></h1>
-                            </c:when>
-                            <c:otherwise>
+                        </c:when>
+                        <c:otherwise>
                             <h1> <spring:message code="request.make"/><br></h1>
-                            </c:otherwise>
-                        </c:choose>
+                        </c:otherwise>
+                    </c:choose>
                     <p>Pleas enter a datail of order and submit</p>
                 </div>
             </div>
@@ -75,66 +67,86 @@
                                     <form:hidden path="id" />
                                     <c:choose>
                                         <c:when test="${not empty request.client}">
-                                            <div>
-                                                <a
-                                                    href=" <spring:url value="/client/show?id=${request.client.id}" /> "
-                                                    >Client: ${request.client.email}
+                                            <h4>
+                                                <a href=" <spring:url value="/client/show?id=${request.client.id}" /> ">
+                                                    Client: ${request.client.email}
                                                 </a>
                                                 <form:hidden path="client.id" /> 
-
-                                            </div>
+                                            </h4>
                                         </c:when>
                                         <c:otherwise>
-                                            <p>  No client </p>
+                                            <h4>Client: No client</h4>
                                         </c:otherwise>
                                     </c:choose>
-                                    <br>
-                                    <div class="form-group">
-                                        <form:input path="destinationAddress" placeholder="Destination Address" required="true" /><form:errors path="destinationAddress"/><br/>
-                                    </div>
-                                    <div class="form-group">
-                                        <form:select items="${cities}" path="city.id" itemValue="id" itemLabel="name"></form:select>
-                                        </div>
-                                        <div class="form-group">
-                                        <form:input path="addresseeName" placeholder="Addresse Name" required="true" /><form:errors path="addresseeName"/><br/>
-                                    </div>
-                                    <div class="form-group">
-                                        <form:input path="addresseeSurname" placeholder="Addressee Surname" required="true" /><form:errors path="addresseeSurname"/><br/>
-                                    </div>
-                                    <div class="form-group">
-                                        <form:input path="weight" placeholder="weight" type="text" required="true" /><form:errors path="weight"/><br/>
-                                    </div>
-                                    <div class ="form-group">
-                                        <form:select path="requestStatus.id" items="${requestStatuses}" itemValue="id" itemLabel="title" />
-                                    </div>
+                                            
                                     <c:choose>
                                         <c:when test="${not empty request.shipment}">
-                                            <div></div>
-                                            <a
-                                                href=" <spring:url value="/shipment/show?id=${request.shipment.id}" /> "
-                                                >Shipment: ${request.shipment.id}
-                                            </a>
-                                            </div>
-                                            <form:hidden path="shipment.id" /> 
+                                            <h4>
+                                                <a href=" <spring:url value="/shipment/show?id=${request.shipment.id}" /> ">
+                                                    Shipment: ${request.shipment.id}
+                                                </a>
+                                                <form:hidden path="shipment.id" />
+                                            </h4>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <h4>Shipment: No shipment assigned</h4>
+                                        </c:otherwise>
+                                    </c:choose>        
+                                    <br>
                                     
-                                </c:when>
-                                <c:otherwise>
-                                    <p>  No shipment assigned </p>
-                                </c:otherwise>
-                            </c:choose>
-                           
-                            <input class="btn btn-lg btn-success btn-block" type="submit" value="Save">
+                                    <div class="form-group">
+                                        <form:input path="destinationAddress" placeholder="Destination Address" required="true" cssClass="form-control" />
+                                        <form:errors path="destinationAddress"/>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <form:select items="${cities}" path="city.id" itemValue="id" itemLabel="name" cssClass="form-control"></form:select>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <form:input path="addresseeName" placeholder="Addresse Name" required="true" cssClass="form-control"/>
+                                        <form:errors path="addresseeName"/>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <form:input path="addresseeSurname" placeholder="Addressee Surname" required="true" cssClass="form-control"/>
+                                        <form:errors path="addresseeSurname"/>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <form:input path="weight" placeholder="weight" type="text" required="true" cssClass="form-control"/>
+                                        <form:errors path="weight"/>
+                                    </div>
+                                    
+                                    <div class ="form-group">
+                                        <form:select path="requestStatus.id" items="${requestStatuses}" itemValue="id" itemLabel="title" cssClass="form-control"/>
+                                    </div>
+                                <input class="btn btn-lg btn-success btn-block" type="submit" value="Save">
                             </fieldset>
                         </form:form>
                     </div>
                 </div>
+                    <c:choose>
+                        <c:when test="${edit}">
+                            <a href="/Kurierzy/request/showAll">
+                                <button class="btn btn-lg btn-default btn-block"> 
+                                <span class="glyphicon  glyphicon-arrow-left"> </span> 
+                                Backt to the previous page
+                                </button>
+                            </a>
+                        </c:when>
+                        <c:otherwise>
+                            <a href="/Kurierzy/">
+                                <button class="btn btn-lg btn-default btn-block"> 
+                                <span class="glyphicon  glyphicon-arrow-left"> </span> 
+                                Backt to the previous page
+                                </button>
+                            </a>
+                        </c:otherwise>
+                    </c:choose>
             </div>
         </div>
     </div>
-</body>
-
-
-
-
-
-
+        </div>
+    </body>
+</html>

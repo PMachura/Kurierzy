@@ -85,7 +85,8 @@ public class ShipmentController {
             @RequestParam(value = "employeeId", required = false) Integer employeeId,
             Model model) {
 
-        Iterable<Employee> employees = employeeService.findAll();
+        Iterable<Employee> employees = employeeService.findAllByRole("ROLE_COURIER");
+//        Iterable<Employee> employees = employeeService.findAll();
 
         model.addAttribute("employees", employees);
         model.addAttribute("shipmentId", shipmentId);
@@ -106,6 +107,7 @@ public class ShipmentController {
         model.addAttribute("shipmentStatuses", shipmentStatuses);
         model.addAttribute("shipment", shipment);
         model.addAttribute("cities", cities);
+        model.addAttribute("edit", true);
         return "shipment/add";
     }
 

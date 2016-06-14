@@ -1,18 +1,26 @@
-.header {
-    margin-bottom: 45px
+.custom-container {
+    padding-bottom: 50px;
 }
+
 
 .inputError {
     color: red;
     float: right;
 }
 
-.button {
-    padding-left: 15px;
-    padding-right: 15px;
-    border-radius: 0px;
-}
-
 .float-right {
     float: right;
+}
+
+a {
+    /*color: black;*/
+}
+
+a:hover {
+    text-decoration: none;
+    /*color: black;*/
+}
+
+.header {
+    margin-top: 10%;
 }

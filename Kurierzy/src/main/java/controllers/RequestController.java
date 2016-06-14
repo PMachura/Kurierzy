@@ -12,6 +12,8 @@ import model.Request;
 import model.RequestStatus;
 import model.Shipment;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
@@ -128,7 +130,7 @@ public class RequestController {
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String save(@ModelAttribute("request")
+    public String save(@RequestParam(value = "addType")String addType, @ModelAttribute("request")
             @Valid Request order, BindingResult bindingResult) {
 
         /**
@@ -136,7 +138,11 @@ public class RequestController {
          * /client/add.htm
          */
         if (bindingResult.hasErrors()) {
-            return "request/make";
+            if(addType.equals("client")) {
+                return "redirect:/request/addByClient";
+            } else {
+                return "redirect:/request/addByEmployee";
+            }
         }
 
         requestService.save(order);
@@ -145,6 +151,7 @@ public class RequestController {
 
     }
 
+    
     @RequestMapping("/showAll")
     public String showAll(Model model) {
 

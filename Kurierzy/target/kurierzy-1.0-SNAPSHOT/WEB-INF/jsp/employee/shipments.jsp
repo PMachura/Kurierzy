@@ -1,41 +1,56 @@
-<%-- 
-    Document   : show
-    Created on : 2016-05-22, 11:08:44
-    Author     : Przemek
---%>
-
 <%@ include file="/WEB-INF/jsp/includes.jsp"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>My Shipments</title>
     </head>
     <body>
-        <section>
-            <div class="jumbotron">
-                <div class="container">
-                    <h1>${employee.email} shipments</h1>
-                    <p></p>
-                </div>
-            </div>
-        </section>
-
-        <section class="container">
-            <c:forEach items="${employee.shipments}" var="shipment">
-                <div class="col-sm-6 col-md-3" style="padding-bottom: 15px">
-                    <div class="thumbnail">
-                        <div class="caption">
-                            <h3><a href=" <spring:url value="/shipment/show?id=${shipment.id}" /> " target="_blank">Id: ${shipment.id}</a></h3>
-                            <p>Status: ${shipment.shipmentStatus.title}
-                            <p> Current City: ${shipment.currentCity.name} </p>
-                            <p> Next City: ${shipment.nextCity.name} </p>
-
-
-                        </div>
+        <div class="custom-container">
+            
+            <section>
+                <div class="jumbotron">
+                    <div class="container">
+                        <h1>${employee.email} shipments</h1>
+                        <p></p>
                     </div>
                 </div>
-            </c:forEach>
-        </section>
+            </section>
+
+            <section class="container">
+                <c:forEach items="${employee.shipments}" var="shipment">
+                    <div class="col-sm-6 col-md-3" style="padding-bottom: 15px">
+                        <div class="thumbnail">
+                            <div class="caption"> 
+                                <h3>Id: ${shipment.id}</h3>
+                                <p>Status: ${shipment.shipmentStatus.title}
+                                <p> Current City: ${shipment.currentCity.name} </p>
+                                <p> Next City: ${shipment.nextCity.name} </p>
+                                <a href=" <spring:url value="/shipment/show?id=${shipment.id}" /> ">
+                                    <button type="button" class="btn btn-success btn-block">Show</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </c:forEach>
+                <sec:authorize access="hasRole('ROLE_ADMIN')">
+                    <a href="show?id=${employee.id}">
+                        <button class="btn btn-lg btn-default btn-block"> 
+                            <span class="glyphicon  glyphicon-arrow-left"> </span> 
+                            Back to the previous page
+                        </button>
+                    </a>
+                </sec:authorize>
+                
+                <sec:authorize access="hasRole('ROLE_COURIER')">
+                <a href="/Kurierzy/">
+                    <button class="btn btn-lg btn-default btn-block"> 
+                        <span class="glyphicon  glyphicon-arrow-left"> </span> 
+                        Backt to the previous page
+                    </button>
+                </a>
+                </sec:authorize>
+            </section>
+        </div>
     </body>
 </html>

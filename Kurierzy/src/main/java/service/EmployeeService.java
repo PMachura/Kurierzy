@@ -42,4 +42,8 @@ public class EmployeeService {
     public Employee findByEmail(String email){
         return employeeRepository.findBeEmail(email);
     }
+    
+    public Iterable<Employee> findAllByRole(String role) {
+        return employeeRepository.findAllByRole(role);
+    }
 }

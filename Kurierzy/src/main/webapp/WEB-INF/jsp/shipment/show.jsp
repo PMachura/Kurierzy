@@ -1,25 +1,20 @@
-
-
 <%@ include file="/WEB-INF/jsp/includes.jsp"%>
-
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Shipment</title>
     </head>
     <body>
         <section>
             <div class="jumbotron">
                 <div class="container">
-                    <h1><spring:message code="request.show" /></h1>
-
+                    <h1>Shipment</h1>
                 </div>
             </div>
         </section>
 
         <section class="container">
             <div class="row">
-
                 <div class="col-sm-6 col-md-4" style="padding-bottom: 15px">
                     <div class="thumbnail">
                         <div class="caption">
@@ -36,11 +31,13 @@
                                         Courier: ${shipment.employee.email}
                                     </a>
                                 </p> 
-                                <sec:authorize access="hasAuthority('MANAGER')">
+                                <sec:authorize access="hasAnyRole('ROLE_FORWARDER, ROLE_COURIER')">
                                     <form:form action="edit" method="POST">
                                         <input hidden="true" name="shipmentId" value="${shipment.id}"/>
                                         <input type="submit" class="btn btn-lg btn-success btn-block" value="Edit"  >    
-                                    </form:form> 
+                                    </form:form>
+                                </sec:authorize>
+                                <sec:authorize access="hasRole('ROLE_FORWARDER')">        
                                     <form:form action="delete" method="POST">
                                         <input hidden="true" name="shipmentId" value="${shipment.id}"/>
                                         <input type="submit" class="btn btn-lg btn-success btn-block" value="DELETE"  >    

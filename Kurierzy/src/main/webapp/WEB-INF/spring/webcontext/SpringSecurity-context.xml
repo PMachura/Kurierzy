@@ -20,8 +20,23 @@
         <property name="cacheSeconds" value="0" />
     </bean>
    
-    <security:http>
-        <security:intercept-url pattern="/cos" access="isAuthenticated()" />    <!-- TU mozna uzy hasRole(ADMIN) np -->    
+    <security:http use-expressions="true">
+        <security:intercept-url pattern="/client/register" access="isAnonymous()" />
+        <security:intercept-url pattern="/" access="isAuthenticated()" />      
+        <security:intercept-url pattern="/request/addByClient" access="hasRole('ROLE_CLIENT')" />
+        <security:intercept-url pattern="/request/save" access="hasAnyRole('ROLE_CLIENT, ROLE_FORWARDER, ROLE_ADMIN')" />
+        <security:intercept-url pattern="/request/**" access="hasAnyRole('ROLE_FORWARDER, ROLE_ADMIN')" />
+        <security:intercept-url pattern="/employee/myShipments" access="hasAnyRole('ROLE_ADMIN, ROLE_COURIER')" />
+        <security:intercept-url pattern="/employee/show*" access="hasAnyRole('ROLE_COURIER, ROLE_ADMIN, ROLE_FORWARDER, ROLE_CLIENT')" />  
+        <security:intercept-url pattern="/employee/**" access="hasRole('ROLE_ADMIN')" />
+        <security:intercept-url pattern="/shipment/show*" access="hasAnyRole('ROLE_COURIER, ROLE_FORWARDER, ROLE_ADMIN')" />
+        <security:intercept-url pattern="/shipment/edit" access="hasAnyRole('ROLE_COURIER, ROLE_FORWARDER, ROLE_ADMIN')" />
+        <security:intercept-url pattern="/shipment/save" access="hasAnyRole('ROLE_COURIER, ROLE_FORWARDER, ROLE_ADMIN')" />
+        <security:intercept-url pattern="/shipment/**" access="hasAnyRole('ROLE_FORWARDER, ROLE_ADMIN')" />
+        <security:intercept-url pattern="/vehicle/**" access="hasAnyRole('ROLE_FORWARDER, ROLE_ADMIN')" />   
+        <security:intercept-url pattern="/client/myProfile" access="hasRole('ROLE_CLIENT')" />
+        <security:intercept-url pattern="/client/editMyProfile" access="hasRole('ROLE_CLIENT')" />   
+        <!--<security:intercept-url pattern="/cos" access="isAuthenticated()" />     TU mozna uzy hasRole(ADMIN) np -->    
         <security:form-login
                         login-processing-url="/j_spring_security_check"
                         default-target-url="/"
@@ -37,7 +52,9 @@
         <security:logout logout-success-url="/" 
                          logout-url="/logout"   />
       
-    </security:http> 
+    </security:http>
+    
+     <security:global-method-security secured-annotations="enabled" jsr250-annotations="enabled" pre-post-annotations="enabled"/> 
     
     <security:authentication-manager alias="myAuthManager">
       <security:authentication-provider>
@@ -46,7 +63,7 @@
                    users-by-username-query=
 		    "select email,password,enabled from client where email=?"
                   authorities-by-username-query=
-		    "select email, 'CLIENT' from client where email = ?"
+		    "select email, 'ROLE_CLIENT' from client where email = ?"
             />  
        </security:authentication-provider>
        
@@ -60,9 +77,8 @@
             /> 
 	</security:authentication-provider>
     </security:authentication-manager>
-	    
-    <security:global-method-security secured-annotations="enabled" jsr250-annotations="enabled"/>
-  
+    
+    
     <bean class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler"/>
 	
     <!-- To prevent browser's back button on displaying secured resource after logout -->

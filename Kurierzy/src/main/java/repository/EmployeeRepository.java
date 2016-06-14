@@ -25,4 +25,7 @@ public interface EmployeeRepository extends CrudRepository<Employee,Integer> {
 //    public Role findRoleById(@Param("email")String name);
     @Query("Select e from Employee e where e.email like :email")
     public Employee findBeEmail(@Param("email")String email);
+    
+    @Query(value = "Select * from employee e, role r where r.id in (select er.role_id from employee_role er where er.employee_id = e.id ) and r.title like :title" , nativeQuery = true)
+    public Iterable<Employee> findAllByRole(@Param("title")String title);
 }

@@ -1,10 +1,7 @@
 <%@ include file="/WEB-INF/jsp/includes.jsp"%>
-
 <html>
     <head>
-
-
-        <title>Produkty</title>
+        <title>Add Employee</title>
     </head>
     <body>
         <section>
@@ -27,25 +24,29 @@
                                     <form:hidden path="id"/>
                                 <fieldset>
                                     <div class="form-group">
-                                        <form:input path="email" placeholder="Email" required="true" /><form:errors path="email"/><br/>
+                                        <form:input path="email" placeholder="Email" required="true" cssClass="form-control" />
+                                        <form:errors path="email"/>
                                     </div>
                                     <div class="form-group">
-                                        <form:input path="password" placeholder="Password" type="text" required="true" /><form:errors path="password"/><br/>
+                                        <form:input path="password" placeholder="Password" type="text" required="true" cssClass="form-control" />
+                                        <form:errors path="password"/>
                                     </div>
                                     <div class="form-group">
-                                        <form:select multiple="true" path="roles" items="${rolesAvaliable}"  itemLabel="title" itemValue="id" /> <!-- sprawdzic czy ddziala z options blad byl ze bylo itemValues a nie itemValue -->                      
+                                        <form:select multiple="true" path="roles" items="${rolesAvaliable}"  itemLabel="title" itemValue="id" cssClass="form-control" /> <!-- sprawdzic czy ddziala z options blad byl ze bylo itemValues a nie itemValue -->                      
                                     </div>
                                     <div class="form-group">
-                                        <form:input path="name" placeholder="Name" required="true" /><form:errors path="name"/><br/>
+                                        <form:input path="name" placeholder="Name" required="true" cssClass="form-control" />
+                                        <form:errors path="name"/>
                                     </div>
                                     <div class="form-group">
-                                        <form:input path="surname" placeholder="Surname" required="true" /><form:errors path="surname"/><br/>
+                                        <form:input path="surname" placeholder="Surname" required="true" cssClass="form-control" />
+                                        <form:errors path="surname"/>
                                     </div>
                                     <div class="form-group">
-                                        <form:select  items="${cities}"  path="city.id" itemValue="id"  itemLabel="name"></form:select>
+                                        <form:select  items="${cities}"  path="city.id" itemValue="id"  itemLabel="name" cssClass="form-control"></form:select>
                                     </div>
                                      <div class="form-group">
-                                        <form:select    path="vehicle.id"  >
+                                        <form:select path="vehicle.id" cssClass="form-control" >
                                             <form:options items="${vehicles}"  itemValue="id" itemLabel="brand" />                                         
                                         </form:select>
                                     </div>
@@ -54,7 +55,14 @@
                             </form:form>
                         </div>
                     </div>
+                    <a href="/Kurierzy/employee/show?id=${employee.id}">
+                        <button class="btn btn-lg btn-default btn-block"> 
+                            <span class="glyphicon  glyphicon-arrow-left"></span> 
+                            Back to the previous page
+                        </button>
+                    </a>
                 </div>
             </div>
         </div>
     </body>
+</html>

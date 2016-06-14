@@ -1,81 +1,81 @@
-
-
 <%@ include file="/WEB-INF/jsp/includes.jsp"%>
-
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Request</title>
     </head>
     <body>
-        <section>
-            <div class="jumbotron">
-                <div class="container">
-                    <h1><spring:message code="request.show" /></h1>
-
+        <div class="custom-container">
+            
+            <section>
+                <div class="jumbotron">
+                        <h1>Request</h1>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <section class="container">
-            <div class="row">
-
-                <div class="col-sm-6 col-md-4" style="padding-bottom: 15px">
-                    <div class="thumbnail">
-                        <div class="caption">
-
-
-                            <div class ="container">
-                                <h3>ID ${request.id}</h3>
-                                <p>Addressee Surname: ${request.addresseeSurname} </p>
-                                <p>Addressee Name: ${request.addresseeName} </p>
-                                <p>Destination Address: ${request.city.name} ${request.destinationAddress} </p>                                                      
-                                <p>Weight: ${request.weight} </p>
-                                <p>Price: ${request.price} </p>
-                                <p>Status: ${request.requestStatus.title} 
-                                <sec:authorize access="hasAuthority('EMPLOYEE')">
-                                    <p>
-                                        <a
-                                            href=" <spring:url value="/request/edit?id=${request.id}" /> "
-                                            class="btn btn-primary"> Edit
-                                        </a>
-                                    </p>
-                                </sec:authorize>
-                            </div>
-                            
-                            <!-- DANE DOTYCZACE SHIPMENTU      -->
-                            <div class ="container">
-                                <c:choose>
-                                    <c:when test="${not empty request.shipment}">
-                                        <sec:authorize access="hasAuthority('CLIENT')"> 
-                                            <h3>
-
-                                                <form:form action="myShipment" method="POST">
-                                                    <input hidden="true" name="shipmentId" value="${request.shipment.id}"/>
-                                                    <input type="submit" value="Shipment ${request.shipment.id}" >    
-                                                </form:form>   
-
-                                            </h3> 
-                                        </sec:authorize>
-                                        <p> Shipment status: ${request.shipment.shipmentStatus.title} </p>
+            <section class="container">
+                <div class="row">
+                    <div class="col-sm-6 col-md-4" style="padding-bottom: 15px">
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <!--<div class ="container">-->
+                                    <h3>ID ${request.id}</h3>
+                                    <p>Addressee Surname: ${request.addresseeSurname} </p>
+                                    <p>Addressee Name: ${request.addresseeName} </p>
+                                    <p>Destination Address: ${request.city.name} ${request.destinationAddress} </p>                                                      
+                                    <p>Weight: ${request.weight} </p>
+                                    <p>Price: ${request.price} </p>
+                                    <p>Status: ${request.requestStatus.title} 
+                                    <sec:authorize access="hasAnyRole('ROLE_ADMIN, ROLE_FORWARDER')">
                                         <p>
-                                            <a
-                                                href=" <spring:url value="/employee/show?id=${request.shipment.employee.id}" /> "> 
-                                                Courier: ${request.shipment.employee.email}
+                                            <a href=" <spring:url value="/request/edit?id=${request.id}"/>">
+                                                <button type="button" class="btn btn-success btn-block">
+                                                    Edit
+                                                </button>
                                             </a>
                                         </p>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <h3>  No shipment assigned </h3>
-                                    </c:otherwise>
-                                </c:choose>
+                                    </sec:authorize>
+                                <!--</div>-->
+
+                                <!-- DANE DOTYCZACE SHIPMENTU      -->
+                                <!--<div class ="container">-->
+                                    <c:choose>
+                                        <c:when test="${not empty request.shipment}">
+                                            <sec:authorize access="hasRole('ROLE_CLIENT')"> 
+                                                <h3>
+                                                    <form:form action="myShipment" method="POST">
+                                                        <input hidden="true" name="shipmentId" value="${request.shipment.id}"/>
+                                                        <button type="submit" class="btn btn-success btn-block" >Shipment ${request.shipment.id}</button>    
+                                                    </form:form>   
+                                                </h3> 
+                                            </sec:authorize>
+                                            <p> Shipment status: ${request.shipment.shipmentStatus.title} </p>
+                                            <p>
+                                                Courier:
+                                                <a href=" <spring:url value="/employee/show?id=${request.shipment.employee.id}" /> "> 
+                                                     ${request.shipment.employee.email}
+                                                </a>
+                                            </p>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <h3>  No shipment assigned </h3>
+                                        </c:otherwise>
+                                    </c:choose>
+                                <!--</div>-->
+                                <!-- DANE DOTYCZACE SHIPMENTU  KONIEC    -->
                             </div>
-                            <!-- DANE DOTYCZACE SHIPMENTU  KONIEC    -->
                         </div>
                     </div>
+                    <sec:authorize access="hasRole('ROLE_CLIENT')">
+                        <a href="/Kurierzy/client/myRequests">
+                            <button class="btn btn-lg btn-default btn-block"> 
+                                <span class="glyphicon  glyphicon-arrow-left"> </span> 
+                                Back to the previous page
+                            </button>
+                        </a>
+                    </sec:authorize>               
                 </div>
-
-            </div>
-        </section>
+            </section>
+        </div>
     </body>
 </html>

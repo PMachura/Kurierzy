@@ -1,57 +1,58 @@
-<%-- 
-    Document   : show
-    Created on : 2016-05-22, 11:08:44
-    Author     : Przemek
---%>
-
 <%@ include file="/WEB-INF/jsp/includes.jsp"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>My Orders</title>
     </head>
     <body>
-        <section>
-            <div class="jumbotron">
-                <div class="container">
-                    <h1><spring:message code="client.showRequests"/><br></h1>
-                    <p></p>
+        <div class="custom-container">
+            
+            <section>
+                <div class="jumbotron">
+                    <div class="container">
+                        <h1>My Orders</h1>
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <div class="container">
-            <table class="table">
-                <thead class="thead-inverse">
-                    <tr>
-                        <th>Id</th>
-                        <th>Adresse Surname</th>
-                        <th>Adresse Name</th>
-                        <th>Destination</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <c:forEach items="${client.requests}" var="request">
+            <div class="container">
+                <table class="table">
+                    <thead class="thead-inverse">
                         <tr>
-                         
-                            <td>
-                                <form:form action="myRequest" method="POST">
-                                    <input hidden="true" name="requestId" value="${request.id}"/>
-                                    <input type="submit" value="${request.id}"      
-                                </form:form>
-                            </td>
-                            <td>${request.addresseeSurname}</td>
-                            <td>${request.addresseeName}</td>
-                            <td>${request.city.name}</td>
-                            <td>${request.requestStatus.title}</td>
-                           
+                            <th>Id</th>
+                            <th>Adresse Surname</th>
+                            <th>Adresse Name</th>
+                            <th>Destination</th>
+                            <th>Status</th>
+                            <th>Action</th>
                         </tr>
-                    </c:forEach>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <c:forEach items="${client.requests}" var="request">
+                            <tr>
+                                <td>${request.id}</td>
+                                <td>${request.addresseeSurname}</td>
+                                <td>${request.addresseeName}</td>
+                                <td>${request.city.name}</td>
+                                <td>${request.requestStatus.title}</td>
+                                <td>
+                                    <form:form action="myRequest" method="POST">
+                                        <input hidden="true" name="requestId" value="${request.id}"/>
+                                        <button type="submit" class="btn btn-success" value="${request.id}">Show</button>      
+                                    </form:form>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
+                <a href="/Kurierzy/">
+                    <button class="btn btn-lg btn-default btn-block"> 
+                        <span class="glyphicon  glyphicon-arrow-left"> </span> 
+                        Back to the previous page
+                    </button>
+                </a>
+            </div>
         </div>
-
     </body>
 </html>

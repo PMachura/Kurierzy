@@ -1,15 +1,9 @@
-<%-- 
-    Document   : edit
-    Created on : 2016-05-22, 08:03:55
-    Author     : Przemek
---%>
-
 <%@ include file="/WEB-INF/jsp/includes.jsp"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Edit order</title>
     </head>
     <body>
         <h1>Eddit request</h1>
