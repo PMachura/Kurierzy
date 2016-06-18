@@ -37,7 +37,7 @@
                                 <td>${employee.email}</td>
                                 <td>${employee.city.name}</td>
                                 <td>
-                                    <a href="show?id=${employee.id}">
+                                    <a href="show?id=${employee.id}&back=employees">
                                         <button type="button" class="btn btn-success btn-block">Show</button>
                                     </a>
                                 </td>

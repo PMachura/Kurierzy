@@ -74,22 +74,22 @@
                     </div>
                         <c:choose>
                         <c:when test="${edit}">
-                            <sec:authorize access="hasRole('ROLE_COURIER')">
-                                <a href="/Kurierzy/shipment/show?id=${shipment.id}">
+                            <%--<sec:authorize access="hasRole('ROLE_COURIER')">--%>
+                                <a href="/Kurierzy/shipment/show?id=${shipment.id}&back=${back}">
                                 <button class="btn btn-lg btn-default btn-block"> 
                                 <span class="glyphicon  glyphicon-arrow-left"> </span> 
                                 Back to the previous page
                                 </button>
                             </a>
-                            </sec:authorize>
-                            <sec:authorize access="hasAnyRole('ROLE_ADMIN, ROLE_FORWARDER')">
-                                <a href="/Kurierzy/shipment/showAll">
+                            <%--</sec:authorize>--%>
+                            <%--<sec:authorize access="hasAnyRole('ROLE_ADMIN, ROLE_FORWARDER')">--%>
+<!--                                <a href="/Kurierzy/shipment/showAll">
                                 <button class="btn btn-lg btn-default btn-block"> 
                                 <span class="glyphicon  glyphicon-arrow-left"> </span> 
                                 Back to the previous page
                                 </button>
-                            </a>
-                            </sec:authorize>
+                            </a>-->
+                            <%--</sec:authorize>--%>
                             
                         </c:when>
                         <c:otherwise>

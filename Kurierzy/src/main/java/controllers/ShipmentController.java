@@ -98,7 +98,7 @@ public class ShipmentController {
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     public String edit(@RequestParam("shipmentId") Integer shipmentId,
-            Model model) {
+           @RequestParam("back") String back ,Model model) {
 
         Shipment shipment = shipmentService.findOne(shipmentId);
         Iterable<ShipmentStatus> shipmentStatuses = shipmentStatusService.findAll();
@@ -108,6 +108,8 @@ public class ShipmentController {
         model.addAttribute("shipment", shipment);
         model.addAttribute("cities", cities);
         model.addAttribute("edit", true);
+        model.addAttribute("back", back);
+ 
         return "shipment/add";
     }
 
@@ -131,10 +133,16 @@ public class ShipmentController {
     }
 
     @RequestMapping("/show")
-    public String show(@RequestParam("id") Integer shipmentId, Model model) {
+    public String show(@RequestParam("id") Integer shipmentId, @RequestParam("back") String back ,Model model) {
 
         Shipment shipment = shipmentService.findOne(shipmentId);
         model.addAttribute("shipment", shipment);
+        if(back.equals("myShipments")) {
+            model.addAttribute("myShipments", true);
+        }
+        if(back.equals("showAll")) {
+            model.addAttribute("showAll", true);
+        }
 
         return "shipment/show";
     }

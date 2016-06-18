@@ -25,12 +25,9 @@
                             <p>Status: ${shipment.shipmentStatus.title}
                             <p> Current City: ${shipment.currentCity.name} </p>
                             <p> Next City: ${shipment.nextCity.name} </p>
-                            <p>
-                                <form:form action="edit" >
-                                    <input hidden="true" value="${shipment.id}" name ="shipmentId">
-                                    <button class="btn btn-success btn-block" type="submit" value="EDIT">Edit</button>
-                                </form:form>
-                            </p>
+                            <a href=" <spring:url value="/shipment/show?id=${shipment.id}&back=showAll" /> ">
+                                    <button type="button" class="btn btn-success btn-block">Show</button>
+                                </a>
                         </div>
                     </div>
                 </div>          

@@ -132,6 +132,7 @@ public class EmployeeControler {
 public String shipments(@RequestParam("employeeId")Integer employeeId, Model model){
    Employee employee = employeeService.findOne(employeeId);
    model.addAttribute("employee", employee);
+   model.addAttribute("employees", true);
    return "employee/shipments";
 }
     
@@ -151,9 +152,16 @@ public String shipments(@RequestParam("employeeId")Integer employeeId, Model mod
    }
    
    @RequestMapping("/show")
-        public String show(@RequestParam("id") Integer requestId, Model model){
+        public String show(@RequestParam("id") Integer requestId, @RequestParam("back") String back, Model model){
        Employee employee = employeeService.findOne(requestId);
        model.addAttribute("employee",employee);
+       if(back.equals("employees")) {
+           model.addAttribute("employees", true);
+       }
+       if(back.equals("requests")) {
+           model.addAttribute("requests", true);
+       }
+       
        return "employee/show";
    }
         

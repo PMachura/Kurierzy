@@ -51,6 +51,7 @@
             </div>
         </div>
     </sec:authorize>
+        <div class="row">
     <sec:authorize access="hasRole('ROLE_ADMIN')">
         <div class="col-sm-4">
             <div class="panel panel-default">
@@ -82,6 +83,7 @@
                     </div>
                 </div>
             </div>
+        </div>
     </sec:authorize>
     <sec:authorize access="hasRole('ROLE_COURIER')">
         <div class="col-sm-4">
@@ -91,12 +93,13 @@
                 </div>
                 <div class="panel-body">
                     <div class="list-group">
-                        <a href="employee/myShipments"> MyShipments</a><br>
+                        <a class="list-group-item" href="employee/myShipments"> MyShipments</a><br>
                     </div>
                 </div>
             </div>
         </div>
     </sec:authorize>
+        </div>
 </div>
 </body>
 </html>

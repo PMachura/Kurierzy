@@ -57,12 +57,12 @@
                     </div>
                     <c:choose>
                         <c:when test="${edit}">
-                            <a href="/Kurierzy/employee/show?id=${employee.id}">
+                            <a href="/Kurierzy/employee/show?id=${employee.id}&back=employees">
                                 <button class="btn btn-lg btn-default btn-block"> 
                                     <span class="glyphicon  glyphicon-arrow-left"></span> 
                                     Back to the previous page
                                 </button>
-                    </a>
+                            </a>
                         </c:when>
                         <c:otherwise>
                             <a href="/Kurierzy/">

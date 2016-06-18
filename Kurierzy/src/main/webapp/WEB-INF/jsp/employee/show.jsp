@@ -63,22 +63,24 @@
                             </div>
                         </div>
                         <br>
-                        <sec:authorize access="hasRole('ROLE_FORWARDER')">
-                            <a href="/Kurierzy/request/showAll">
+                        <c:choose>
+                            <c:when test="${employees}">
+                                <a href="/Kurierzy/employee/showAll">
                                 <button class="btn btn-lg btn-default btn-block"> 
                                     <span class="glyphicon  glyphicon-arrow-left"> </span> 
                                     Back to the previous page
                                 </button>
                             </a>
-                        </sec:authorize>
-                        <sec:authorize access="hasRole('ROLE_ADMIN')">
-                            <a href="/Kurierzy/employee/showAll">
+                            </c:when>
+                            <c:otherwise>
+                                                          <a href="/Kurierzy/request/showAll">
                                 <button class="btn btn-lg btn-default btn-block"> 
                                     <span class="glyphicon  glyphicon-arrow-left"> </span> 
                                     Back to the previous page
                                 </button>
-                            </a>
-                        </sec:authorize>             
+                            </a>  
+                            </c:otherwise>
+                        </c:choose>           
                     </div>
                 </div>
             </section>

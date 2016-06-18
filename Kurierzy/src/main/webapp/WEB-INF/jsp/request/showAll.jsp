@@ -40,7 +40,7 @@
                                                 href=" <spring:url value="/shipment/show?id=${request.shipment.id}" /> ">${request.shipment.id}</a>
                                         </p>
                                         <p>Employee: <a
-                                                href=" <spring:url value="/employee/show?id=${request.shipment.employee.id}" /> ">${request.shipment.employee.email}</a>
+                                                href=" <spring:url value="/employee/show?id=${request.shipment.employee.id}&back=requests" /> ">${request.shipment.employee.email}</a>
                                         </p>
                                         <p>
                                             <form:form action="edit" method="POST">

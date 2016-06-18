@@ -26,7 +26,7 @@
                                 <p>Status: ${shipment.shipmentStatus.title}
                                 <p> Current City: ${shipment.currentCity.name} </p>
                                 <p> Next City: ${shipment.nextCity.name} </p>
-                                <a href=" <spring:url value="/shipment/show?id=${shipment.id}" /> ">
+                                <a href=" <spring:url value="/shipment/show?id=${shipment.id}&back=myShipments" /> ">
                                     <button type="button" class="btn btn-success btn-block">Show</button>
                                 </a>
                             </div>
@@ -34,22 +34,41 @@
                     </div>
                 </c:forEach>
                 <sec:authorize access="hasRole('ROLE_ADMIN')">
-                    <a href="show?id=${employee.id}">
+<!--                    <a href="show?id=${employee.id}">
                         <button class="btn btn-lg btn-default btn-block"> 
                             <span class="glyphicon  glyphicon-arrow-left"> </span> 
                             Back to the previous page
                         </button>
-                    </a>
+                    </a>-->
                 </sec:authorize>
                 
                 <sec:authorize access="hasRole('ROLE_COURIER')">
-                <a href="/Kurierzy/">
+<!--                <a href="/Kurierzy/">
+                    <button class="btn btn-lg btn-default btn-block"> 
+                        <span class="glyphicon  glyphicon-arrow-left"> </span> 
+                        Back to the previous page
+                    </button>
+                </a>-->
+                </sec:authorize>
+                
+                <c:choose>
+                            <c:when test="${employees}">
+                                <a href="show?id=${employee.id}&back=employees">
+                                <button class="btn btn-lg btn-default btn-block"> 
+                                    <span class="glyphicon  glyphicon-arrow-left"> </span> 
+                                    Back to the previous page
+                                </button>
+                            </a>
+                            </c:when>
+                            <c:otherwise>
+                                                          <a href="/Kurierzy/">
                     <button class="btn btn-lg btn-default btn-block"> 
                         <span class="glyphicon  glyphicon-arrow-left"> </span> 
                         Back to the previous page
                     </button>
                 </a>
-                </sec:authorize>
+                            </c:otherwise>
+                        </c:choose>  
             </section>
         </div>
     </body>
