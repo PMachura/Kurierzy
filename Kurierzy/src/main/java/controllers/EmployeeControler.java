@@ -122,6 +122,7 @@ public class EmployeeControler {
         model.addAttribute("rolesAvaliable", rolesAvaliable);
         model.addAttribute("vehicles", vehicles);
         model.addAttribute("employee", employee);
+        model.addAttribute("edit", true);
 
         return "employee/add";
     }

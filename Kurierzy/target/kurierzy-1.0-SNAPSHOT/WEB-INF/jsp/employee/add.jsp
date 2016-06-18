@@ -55,12 +55,24 @@
                             </form:form>
                         </div>
                     </div>
-                    <a href="/Kurierzy/employee/show?id=${employee.id}">
-                        <button class="btn btn-lg btn-default btn-block"> 
-                            <span class="glyphicon  glyphicon-arrow-left"></span> 
-                            Back to the previous page
-                        </button>
-                    </a>
+                    <c:choose>
+                        <c:when test="${edit}">
+                            <a href="/Kurierzy/employee/show?id=${employee.id}">
+                                <button class="btn btn-lg btn-default btn-block"> 
+                                    <span class="glyphicon  glyphicon-arrow-left"></span> 
+                                    Back to the previous page
+                                </button>
+                            </a>
+                        </c:when>
+                        <c:otherwise>
+                            <a href="/Kurierzy/">
+                                <button class="btn btn-lg btn-default btn-block"> 
+                                    <span class="glyphicon  glyphicon-arrow-left"></span> 
+                                    Back to the previous page
+                                </button>
+                            </a>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
             </div>
         </div>
