@@ -58,6 +58,13 @@
                                 </button>
                             </a>
                             </c:when>
+                            <c:when test="${client}">
+                                <form:form action="myRequest" method="POST">
+                                        <input hidden="true" name="requestId" value="${requestId}"/>
+                                        <button type="submit" class="btn btn-lg btn-default btn-block" value="${requestId}"><span class="glyphicon  glyphicon-arrow-left"> </span> 
+                                    Back to the previous page</button>      
+                                    </form:form>
+                            </c:when>
                             <c:otherwise>
                                                           <a href="/Kurierzy/shipment/showAll">
                                 <button class="btn btn-lg btn-default btn-block"> 

@@ -117,10 +117,13 @@ public class ClientController {
 
     @RequestMapping(value = "/myShipment", method = RequestMethod.POST)
     public String myShipment(Model model,
-            @RequestParam("shipmentId") Integer shipmentId) {
+            @RequestParam("shipmentId") Integer shipmentId,
+            @RequestParam("requestId") Integer requestId) {
 
         Shipment shipment = shipmentService.findOne(shipmentId);
         model.addAttribute("shipment", shipment);
+        model.addAttribute("requestId", requestId);
+        model.addAttribute("client", true);
 
         return "shipment/show";
     }

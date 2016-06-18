@@ -45,16 +45,14 @@
                                                 <h3>
                                                     <form:form action="myShipment" method="POST">
                                                         <input hidden="true" name="shipmentId" value="${request.shipment.id}"/>
+                                                        <input hidden="true" name="requestId" value="${request.id}"/>
                                                         <button type="submit" class="btn btn-success btn-block" >Shipment ${request.shipment.id}</button>    
                                                     </form:form>   
                                                 </h3> 
                                             </sec:authorize>
                                             <p> Shipment status: ${request.shipment.shipmentStatus.title} </p>
                                             <p>
-                                                Courier:
-                                                <a href=" <spring:url value="/employee/show?id=${request.shipment.employee.id}" /> "> 
-                                                     ${request.shipment.employee.email}
-                                                </a>
+                                                Courier: ${request.shipment.employee.email}
                                             </p>
                                         </c:when>
                                         <c:otherwise>
