@@ -25,12 +25,7 @@
                                 <p> Shipment status: ${shipment.shipmentStatus.title} </p>
                                 <p> Current City: ${shipment.currentCity.name} </p>
                                 <p> Next City: ${shipment.nextCity.name} </p>
-                                <p>
-                                    <a
-                                        href=" <spring:url value="/employee/show?id=${shipment.employee.id}" /> "> 
-                                        Courier: ${shipment.employee.email}
-                                    </a>
-                                </p> 
+                                <p>Courier: ${shipment.employee.email}</p> 
                                 <sec:authorize access="hasAnyRole('ROLE_FORWARDER, ROLE_COURIER')">
                                     <form:form action="edit" method="POST">
                                         <input hidden="true" name="shipmentId" value="${shipment.id}"/>

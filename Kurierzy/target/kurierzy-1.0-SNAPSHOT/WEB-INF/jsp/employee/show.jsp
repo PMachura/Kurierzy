@@ -72,13 +72,22 @@
                                 </button>
                             </a>
                             </c:when>
-                            <c:otherwise>
-                                                          <a href="/Kurierzy/request/showAll">
+                            <c:when test="${shipments}">
+                                    <a href="/Kurierzy/shipment/showAll">
                                 <button class="btn btn-lg btn-default btn-block"> 
                                     <span class="glyphicon  glyphicon-arrow-left"> </span> 
                                     Back to the previous page
                                 </button>
                             </a>  
+                                </c:when>
+                            <c:otherwise>
+                                    <a href="/Kurierzy/request/showAll">
+                                <button class="btn btn-lg btn-default btn-block"> 
+                                    <span class="glyphicon  glyphicon-arrow-left"> </span> 
+                                    Back to the previous page
+                                </button>
+                            </a>  
+                                                          
                             </c:otherwise>
                         </c:choose>           
                     </div>

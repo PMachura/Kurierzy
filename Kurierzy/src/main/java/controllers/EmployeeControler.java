@@ -161,6 +161,9 @@ public String shipments(@RequestParam("employeeId")Integer employeeId, Model mod
        if(back.equals("requests")) {
            model.addAttribute("requests", true);
        }
+       if(back.equals("shipments")) {
+           model.addAttribute("shipments", true);
+       }
        
        return "employee/show";
    }

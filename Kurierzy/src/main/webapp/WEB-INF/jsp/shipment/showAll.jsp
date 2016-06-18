@@ -21,7 +21,7 @@
                     <div class="thumbnail">
                         <div class="caption">
                             <h3>Id: ${shipment.id}</h3>
-                            <p>Employee: <a href="/Kurierzy/employee/show?id=${shipment.employee.id}"> ${shipment.employee.email} </a> </p>
+                            <p>Employee: <a href="/Kurierzy/employee/show?id=${shipment.employee.id}&back=shipments"> ${shipment.employee.email} </a> </p>
                             <p>Status: ${shipment.shipmentStatus.title}
                             <p> Current City: ${shipment.currentCity.name} </p>
                             <p> Next City: ${shipment.nextCity.name} </p>
