@@ -27,6 +27,7 @@ import service.CityService;
 import service.ClientService;
 import service.RequestService;
 import service.RequestStatusService;
+import service.RoleService;
 import service.ShipmentService;
 
 /**
@@ -45,6 +46,9 @@ public class RequestController {
 
     @Autowired
     RequestService requestService;
+
+    @Autowired
+    RoleService roleService;
 
     @Autowired
     RequestStatusService requestStatusService;
@@ -79,18 +83,18 @@ public class RequestController {
             request = new Request();
         }
 
-        if(shipmentId != null){
+        if (shipmentId != null) {
             Shipment shipment = shipmentService.findOne(shipmentId);
             request.setShipment(shipment);
         }
-        if(clientId != null){
+        if (clientId != null) {
             Client client = clientService.findOne(clientId);
             request.setClient(client);
         }
-        
+
         Iterable<RequestStatus> requestStatuses = requestStatusService.findAll();
-        
-        model.addAttribute("requestStatuses",requestStatuses);
+
+        model.addAttribute("requestStatuses", requestStatuses);
         model.addAttribute("request", request);
         model.addAttribute("cities", cityService.findAll());
 
@@ -104,8 +108,8 @@ public class RequestController {
             Model model) {
 
         Iterable<Shipment> shipments = shipmentService.findAll();
-        
-        model.addAttribute("shipments",shipments);
+
+        model.addAttribute("shipments", shipments);
         model.addAttribute("requestId", requestId);
         model.addAttribute("shipmentId", shipmentId);
         model.addAttribute("clientId", clientId);
@@ -130,7 +134,7 @@ public class RequestController {
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String save(@RequestParam(value = "addType")String addType, @ModelAttribute("request")
+    public String save(@RequestParam(value = "addType") String addType, @ModelAttribute("request")
             @Valid Request order, BindingResult bindingResult) {
 
         /**
@@ -138,7 +142,7 @@ public class RequestController {
          * /client/add.htm
          */
         if (bindingResult.hasErrors()) {
-            if(addType.equals("client")) {
+            if (addType.equals("client")) {
                 return "redirect:/request/addByClient";
             } else {
                 return "redirect:/request/addByEmployee";
@@ -151,11 +155,13 @@ public class RequestController {
 
     }
 
-    
     @RequestMapping("/showAll")
     public String showAll(Model model) {
 
         Iterable<Request> requests = requestService.findAll();
+        Iterable<RequestStatus> requestStatuses = requestStatusService.findAll();
+
+        model.addAttribute("requestStatuses", requestStatuses);
         model.addAttribute("requests", requests);
 
         return "request/showAll";
@@ -163,7 +169,7 @@ public class RequestController {
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     public String edit(Model model,
-                       @RequestParam("requestId") Integer requestId) {
+            @RequestParam("requestId") Integer requestId) {
 
         Request request = requestService.findOne(requestId);
         Iterable<RequestStatus> requestStatuses = requestStatusService.findAll();
@@ -177,9 +183,9 @@ public class RequestController {
         return "request/addByEmployee";
 
     }
-    
+
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
-    public String delete(@RequestParam("requestId") Integer requestId){
+    public String delete(@RequestParam("requestId") Integer requestId) {
         requestService.delete(requestId);
         return "messages/operationSuccessful";
     }

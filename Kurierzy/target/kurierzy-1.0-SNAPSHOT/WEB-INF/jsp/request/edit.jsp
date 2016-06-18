@@ -6,7 +6,7 @@
         <title>Edit order</title>
     </head>
     <body>
-        <h1>Eddit request</h1>
+        <h1>Edit request</h1>
         <div>
             <form:form modelAttribute="request" method="POST" action="update">
                 <form:hidden path="id"/>

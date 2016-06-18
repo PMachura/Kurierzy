@@ -62,7 +62,7 @@
                                     <span class="glyphicon  glyphicon-arrow-left"></span> 
                                     Back to the previous page
                                 </button>
-                            </a>
+                    </a>
                         </c:when>
                         <c:otherwise>
                             <a href="/Kurierzy/">

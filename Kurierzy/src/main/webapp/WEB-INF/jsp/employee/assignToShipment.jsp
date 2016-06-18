@@ -55,7 +55,7 @@
 
                         <button class="btn btn-lg btn-default btn-block" type="submit"> 
                             <span class="glyphicon  glyphicon-arrow-left"> </span> 
-                            Backt to the previous page
+                            Back to the previous page
 
                         </button>
 

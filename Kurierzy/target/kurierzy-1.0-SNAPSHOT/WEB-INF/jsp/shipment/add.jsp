@@ -78,7 +78,7 @@
                                 <a href="/Kurierzy/shipment/show?id=${shipment.id}">
                                 <button class="btn btn-lg btn-default btn-block"> 
                                 <span class="glyphicon  glyphicon-arrow-left"> </span> 
-                                Backt to the previous page
+                                Back to the previous page
                                 </button>
                             </a>
                             </sec:authorize>
@@ -86,7 +86,7 @@
                                 <a href="/Kurierzy/shipment/showAll">
                                 <button class="btn btn-lg btn-default btn-block"> 
                                 <span class="glyphicon  glyphicon-arrow-left"> </span> 
-                                Backt to the previous page
+                                Back to the previous page
                                 </button>
                             </a>
                             </sec:authorize>
@@ -96,7 +96,7 @@
                             <a href="/Kurierzy/">
                                 <button class="btn btn-lg btn-default btn-block"> 
                                 <span class="glyphicon  glyphicon-arrow-left"> </span> 
-                                Backt to the previous page
+                                Back to the previous page
                                 </button>
                             </a>
                         </c:otherwise>

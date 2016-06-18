@@ -121,6 +121,8 @@
                                     <div class ="form-group">
                                         <form:select path="requestStatus.id" items="${requestStatuses}" itemValue="id" itemLabel="title" cssClass="form-control"/>
                                     </div>
+                                    
+                                <input name="addType" value="employee" hidden="hidden" />
                                 <input class="btn btn-lg btn-success btn-block" type="submit" value="Save">
                             </fieldset>
                         </form:form>
@@ -131,7 +133,7 @@
                             <a href="/Kurierzy/request/showAll">
                                 <button class="btn btn-lg btn-default btn-block"> 
                                 <span class="glyphicon  glyphicon-arrow-left"> </span> 
-                                Backt to the previous page
+                                Back to the previous page
                                 </button>
                             </a>
                         </c:when>
@@ -139,7 +141,7 @@
                             <a href="/Kurierzy/">
                                 <button class="btn btn-lg btn-default btn-block"> 
                                 <span class="glyphicon  glyphicon-arrow-left"> </span> 
-                                Backt to the previous page
+                                Back to the previous page
                                 </button>
                             </a>
                         </c:otherwise>
