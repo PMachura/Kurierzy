@@ -40,7 +40,7 @@ public class Employee {
     @Column(unique = true)
     private String email;
 
-    private Integer enabled;
+    private Integer enabled=1;
 
     @NotEmpty
     private String name;
@@ -53,22 +53,18 @@ public class Employee {
 
     @ManyToOne
     @JoinColumn(name = "city_id")
-    private City city;
+    private City city = new City();
 
     @ManyToMany(cascade = {CascadeType.MERGE})
     @JoinTable(name = "Employee_Role", joinColumns = @JoinColumn(name = "employee_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<Role>();
 
     @ManyToOne
-    @JoinColumn(nullable = true,name = "vehicle_id" )
-    private Vehicle vehicle;
+    @JoinColumn(nullable = true, name = "vehicle_id" )
+    private Vehicle vehicle = new Vehicle();
     
     @OneToMany(mappedBy = "employee")
     private List<Shipment> shipments = new ArrayList<Shipment>(0);
-
-    public Employee(){
-        enabled = 1;
-    }
     
     public String getIdAsString() {
         return new Integer(id).toString();

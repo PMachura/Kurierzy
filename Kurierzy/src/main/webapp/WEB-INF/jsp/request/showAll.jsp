@@ -28,7 +28,7 @@
                                 <div class="col-sm-4">
                                     <div class="caption">
                                         <h3>Id: ${request.id}</h3>
-                                        <p>Client: <a
+                                        <p>Client: <a target="_blank"
                                                 href=" <spring:url value="/client/show?id=${request.client.id}" /> ">${request.client.email}</a>
                                         </p>
                                         <p>Status: ${request.requestStatus.title}
@@ -36,10 +36,10 @@
                                         <p>Addressee Surname: ${request.addresseeSurname} </p>
                                         <p>Addressee Name: ${request.addresseeName} </p>
                                         <p>Weight: ${request.weight} </p>
-                                        <p>Shipment: <a
-                                                href=" <spring:url value="/shipment/show?id=${request.shipment.id}" /> ">${request.shipment.id}</a>
+                                        <p>Shipment: <a target="_blank"
+                                                href=" <spring:url value="/shipment/show?id=${request.shipment.id}&back=requests" /> ">${request.shipment.id}</a>
                                         </p>
-                                        <p>Employee: <a
+                                        <p>Employee: <a target="_blank"
                                                 href=" <spring:url value="/employee/show?id=${request.shipment.employee.id}&back=requests" /> ">${request.shipment.employee.email}</a>
                                         </p>
                                         <p>

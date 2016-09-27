@@ -36,4 +36,8 @@ public class RequestService {
     public void delete(Integer id){
         requestRepository.delete(id);
     }
+    
+    public Iterable<Request> findByShipmentId(Integer shipmentId){
+        return requestRepository.findByShipmentId(shipmentId);
+    }
 }

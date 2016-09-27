@@ -5,8 +5,10 @@
  */
 package controllers;
 
+import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -19,6 +21,7 @@ import org.hibernate.validator.internal.engine.groups.Group;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomCollectionEditor;
 import org.springframework.beans.propertyeditors.CustomNumberEditor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -37,6 +40,9 @@ import service.EmployeeService;
 import service.RoleService;
 import service.VehicleService;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.servlet.ModelAndView;
+
 /**
  *
  * @author Przemek
@@ -86,7 +92,22 @@ public class EmployeeControler {
         });
 
     }
-    
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ModelAndView IOExceptionHandle(Locale locale) {
+        ModelAndView modelAndView = new ModelAndView("employee/add");
+        modelAndView.addObject("emailError", "Entered email already exists");
+        Iterable<Vehicle> vehicles = vehicleService.findNotUsed();
+        Iterable<Role> rolesAvaliable = roleService.findAll();
+        Iterable<City> cities = cityService.findAll();
+        Employee employee = new Employee();
+        modelAndView.addObject("cities", cities);
+        modelAndView.addObject("rolesAvaliable", rolesAvaliable);
+        modelAndView.addObject("vehicles", vehicles);
+        modelAndView.addObject("employee", employee);
+        return modelAndView;
+    }
+
     @RequestMapping("/add")
     public String add(Model model) {
 
@@ -106,13 +127,13 @@ public class EmployeeControler {
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public String delete(@RequestParam("employeeId") Integer employeeId) {
         employeeService.delete(employeeId);
-        return "messages/operationSuccessful";
+        return "redirect:/employee/showAll";
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     public String edit(@RequestParam("employeeId") Integer employeeId,
-                       Model model) {
-        
+            Model model) {
+
         Iterable<Vehicle> vehicles = vehicleService.findNotUsed();
         Iterable<Role> rolesAvaliable = roleService.findAll();
         Iterable<City> cities = cityService.findAll();
@@ -127,53 +148,63 @@ public class EmployeeControler {
         return "employee/add";
     }
 
+    @RequestMapping(value = "shipments", method = RequestMethod.GET)
+    public String shipments(@RequestParam("employeeId") Integer employeeId, Model model) {
+        Employee employee = employeeService.findOne(employeeId);
+        model.addAttribute("employee", employee);
+        model.addAttribute("employees", true);
+        return "employee/shipments";
+    }
 
-@RequestMapping(value ="shipments", method = RequestMethod.GET)
-public String shipments(@RequestParam("employeeId")Integer employeeId, Model model){
-   Employee employee = employeeService.findOne(employeeId);
-   model.addAttribute("employee", employee);
-   model.addAttribute("employees", true);
-   return "employee/shipments";
-}
-    
-@RequestMapping(value = "/save", method = RequestMethod.POST)
-        public String save(@ModelAttribute("employee")
-        @Valid Employee employee, BindingResult bindingResult) {
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    public String save(@ModelAttribute("employee")
+            @Valid Employee employee, BindingResult bindingResult, Model model) {
+
+        System.out.println("@SAVE ZAPIS EMPLOYEE");
+        if (bindingResult.hasErrors()) {
+            Iterable<Vehicle> vehicles = vehicleService.findNotUsed();
+            Iterable<Role> rolesAvaliable = roleService.findAll();
+            Iterable<City> cities = cityService.findAll();
+            model.addAttribute("cities", cities);
+            model.addAttribute("rolesAvaliable", rolesAvaliable);
+            model.addAttribute("vehicles", vehicles);
+            return "employee/add";
+        }
 
         employeeService.save(employee);
-        return "redirect:/";
+        return "redirect:/employee/showAll";
     }
-    
-   @RequestMapping("/showAll")
-        public String showAll(Model model){
-       
-       model.addAttribute("employees",employeeService.findAll());
-       return "employee/showAll";
-   }
-   
-   @RequestMapping("/show")
-        public String show(@RequestParam("id") Integer requestId, @RequestParam("back") String back, Model model){
-       Employee employee = employeeService.findOne(requestId);
-       model.addAttribute("employee",employee);
-       if(back.equals("employees")) {
-           model.addAttribute("employees", true);
-       }
-       if(back.equals("requests")) {
-           model.addAttribute("requests", true);
-       }
-       if(back.equals("shipments")) {
-           model.addAttribute("shipments", true);
-       }
-       
-       return "employee/show";
-   }
-        
-   @RequestMapping("/myShipments")
-   public String myShipments(Model model){
-       User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-       Employee employee = employeeService.findByEmail(user.getUsername());
-       model.addAttribute("employee",employee);
-       return "employee/shipments";
-   }
+
+    @RequestMapping("/showAll")
+    public String showAll(Model model) {
+
+        model.addAttribute("employees", employeeService.findAll());
+        return "employee/showAll";
+    }
+
+    @RequestMapping("/show")
+    public String show(@RequestParam("id") Integer requestId, @RequestParam("back") String back, Model model) {
+        Employee employee = employeeService.findOne(requestId);
+        model.addAttribute("employee", employee);
+        if (back.equals("employees")) {
+            model.addAttribute("employees", true);
+        }
+        if (back.equals("requests")) {
+            model.addAttribute("requests", true);
+        }
+        if (back.equals("shipments")) {
+            model.addAttribute("shipments", true);
+        }
+
+        return "employee/show";
+    }
+
+    @RequestMapping("/myShipments")
+    public String myShipments(Model model) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Employee employee = employeeService.findByEmail(user.getUsername());
+        model.addAttribute("employee", employee);
+        return "employee/shipments";
+    }
 
 }

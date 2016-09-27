@@ -57,6 +57,7 @@
                                     <form:input path="email" type="email" cssClass="form-control" required="true" />
                                 </div>
                                 <form:errors cssClass="inputError" path="email"/>
+                                <span id="email.errors" class="error">${emailError}</span>
                             </div>
 
                             <div class="form-group row">

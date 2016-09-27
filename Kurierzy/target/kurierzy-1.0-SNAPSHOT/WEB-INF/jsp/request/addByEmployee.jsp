@@ -34,7 +34,7 @@
                                 <input hidden="true" name="clientId"   value="${request.client.id}"/>
                                 <input hidden="true" name="requestId" value="${request.id}"/>
                                 <div class ="form-group">
-                                    <input class="btn btn-lg btn-success btn-block" type="submit" value="assignClient" >
+                                    <input class="btn btn-lg btn-success btn-block" type="submit" value="Assign Client" >
                                 </div>
                             </form:form>
                         </div>
@@ -50,7 +50,7 @@
                                 <input hidden="true" name="clientId"   value="${request.client.id}"/>
                                 <input hidden="true" name="requestId" value="${request.id}"/>
                                 <div class ="form-group">
-                                    <input class="btn btn-lg btn-success btn-block" type="submit" value="assignShipment" >
+                                    <input class="btn btn-lg btn-success btn-block" type="submit" value="Assign Shipment" >
                                 </div>
                             </form:form>
                         </div>
@@ -68,21 +68,21 @@
                                     <c:choose>
                                         <c:when test="${not empty request.client}">
                                             <h4>
-                                                <a href=" <spring:url value="/client/show?id=${request.client.id}" /> ">
+                                                <a target="_blank" href=" <spring:url value="/client/show?id=${request.client.id}" /> ">
                                                     Client: ${request.client.email}
                                                 </a>
                                                 <form:hidden path="client.id" /> 
                                             </h4>
                                         </c:when>
                                         <c:otherwise>
-                                            <h4>Client: No client</h4>
+                                            <h4>Client: No client assigned</h4>
                                         </c:otherwise>
                                     </c:choose>
                                             
                                     <c:choose>
                                         <c:when test="${not empty request.shipment}">
                                             <h4>
-                                                <a href=" <spring:url value="/shipment/show?id=${request.shipment.id}" /> ">
+                                                <a target="_blank" href=" <spring:url value="/shipment/show?id=${request.shipment.id}&back=/" /> ">
                                                     Shipment: ${request.shipment.id}
                                                 </a>
                                                 <form:hidden path="shipment.id" />

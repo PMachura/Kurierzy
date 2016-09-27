@@ -18,7 +18,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface VehicleRepository extends CrudRepository<Vehicle,Integer>{
     
-    //;
-    @Query("select distinct v from Vehicle v where v.id=1 or v.id not in (select e.vehicle.id from Employee e)")
+    @Query("select v from Vehicle v where v.id=11 or v.id not in (select e.vehicle.id from Employee e where e.vehicle.id is not null)")
     public Iterable<Vehicle> findNotUsed();
 }

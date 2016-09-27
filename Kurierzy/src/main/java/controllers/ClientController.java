@@ -5,23 +5,30 @@
  */
 package controllers;
 
+import java.util.Locale;
 import java.util.Map;
 import javax.validation.Valid;
 import model.City;
 import model.Client;
+import model.Employee;
 import model.Request;
+import model.Role;
 import model.Shipment;
+import model.Vehicle;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import service.CityService;
 import service.ClientService;
@@ -50,6 +57,17 @@ public class ClientController {
 
     @Autowired
     ShipmentService shipmentService;
+        
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ModelAndView IOExceptionHandle(Locale locale) {
+        ModelAndView modelAndView = new ModelAndView("client/register");
+        modelAndView.addObject("emailError", "Entered email already exists");
+        Iterable<City> cities = cityService.findAll();
+        Client client = new Client();
+        modelAndView.addObject("cities", cities);
+        modelAndView.addObject("client", client);
+        return modelAndView;
+    }
 
     @RequestMapping("/register")
     public String register(Model model) {

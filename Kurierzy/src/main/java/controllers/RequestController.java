@@ -187,7 +187,7 @@ public class RequestController {
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public String delete(@RequestParam("requestId") Integer requestId) {
         requestService.delete(requestId);
-        return "messages/operationSuccessful";
+        return "redirect:/request/showAll";
     }
 
 }

@@ -26,6 +26,7 @@
                                     <div class="form-group">
                                         <form:input path="email" placeholder="Email" required="true" cssClass="form-control" />
                                         <form:errors path="email"/>
+                                        <span id="email.errors" class="error">${emailError}</span>
                                     </div>
                                     <div class="form-group">
                                         <form:input path="password" placeholder="Password" type="text" required="true" cssClass="form-control" />
@@ -43,13 +44,16 @@
                                         <form:errors path="surname"/>
                                     </div>
                                     <div class="form-group">
-                                        <form:select  items="${cities}"  path="city.id" itemValue="id"  itemLabel="name" cssClass="form-control"></form:select>
-                                    </div>
-                                     <div class="form-group">
                                         <form:select path="vehicle.id" cssClass="form-control" >
                                             <form:options items="${vehicles}"  itemValue="id" itemLabel="brand" />                                         
                                         </form:select>
                                     </div>
+                                    <div class="form-group">
+                                         <form:select path="city.id" cssClass="form-control" >
+                                            <form:options items="${cities}"  itemValue="id" itemLabel="name" />                                         
+                                        </form:select>
+                                    </div>
+                                     
                                     <input class="btn btn-lg btn-success btn-block" type="submit" value="Save">
                                 </fieldset>
                             </form:form>

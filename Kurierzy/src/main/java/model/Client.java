@@ -41,7 +41,7 @@ public class Client {
     @Column(unique = true)
     private String email;
 
-    private Integer enabled;
+    private Integer enabled=1;
 
     @NotEmpty
     @Size(max = 15, min = 3)
@@ -63,14 +63,10 @@ public class Client {
 
     @ManyToOne
     @JoinColumn(name = "city_id")
-    private City city;
+    private City city = new City();
 
     @OneToMany(mappedBy = "client")
     private List<Request> requests = new ArrayList<Request>(0);
-
-    public Client(){
-        enabled =1;
-    }
     
     public List<Request> getRequests() {
         return requests;

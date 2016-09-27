@@ -27,6 +27,7 @@
                             <div class="panel-body">
                                 <form:form modelAttribute="client" method="POST" action="update" cssStyle="form-horizontal" >
                                     <form:hidden path="id"/>
+                                    <form:hidden path="email"/>
 
                                     <div class="form-group row">
                                         <label class="col-sm-2 control-label" for="name">
@@ -58,16 +59,7 @@
                                         <form:errors cssClass="inputError" path="address"/>
                                     </div>
 
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 control-label" for="email">
-                                            Email:
-                                        </label>
-                                        <div class="col-sm-10">
-                                            <form:input path="email" type="email" cssClass="form-control" required="true" />
-                                        </div>
-                                        <form:errors cssClass="inputError" path="email"/>
-                                    </div>
-
+                                    
                                     <div class="form-group row">
                                         <label class="col-sm-2 control-label" for="phoneNu,ber">
                                             Phone:

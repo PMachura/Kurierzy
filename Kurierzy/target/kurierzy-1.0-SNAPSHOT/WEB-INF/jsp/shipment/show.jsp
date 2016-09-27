@@ -30,50 +30,55 @@
                                     <form:form action="edit" method="POST">
                                         <input hidden="true" name="shipmentId" value="${shipment.id}"/>
                                         <c:choose>
-                            <c:when test="${myShipments}">
-                    <input hidden="true" name="back" value="myShipments"/>
-                            </c:when>
-                            <c:otherwise>
-                    <input hidden="true" name="back" value="showAll"/>
-                            </c:otherwise>
-                        </c:choose>   
+                                            <c:when test="${myShipments}">
+                                                <input hidden="true" name="back" value="myShipments"/>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <input hidden="true" name="back" value="showAll"/>
+                                            </c:otherwise>
+                                        </c:choose>   
                                         <input type="submit" class="btn btn-lg btn-success btn-block" value="Edit"  >    
                                     </form:form>
                                 </sec:authorize>
                                 <sec:authorize access="hasRole('ROLE_FORWARDER')">        
                                     <form:form action="delete" method="POST">
                                         <input hidden="true" name="shipmentId" value="${shipment.id}"/>
-                                        <input type="submit" class="btn btn-lg btn-success btn-block" value="DELETE"  >    
+                                        <input type="submit" class="btn btn-lg btn-success btn-block" value="Delete"  >    
                                     </form:form> 
+                                </sec:authorize>
+                                <sec:authorize access="hasAnyRole('ROLE_FORWARDER', 'ROLE_COURIER', 'ROLE_ADMIN')">        
+                                    <a href=" <spring:url value="/shipment/${shipment.id}/showRequest" /> ">
+                                        <button type="button" class="btn btn-lg btn-success btn-block">Show Request</button>
+                                    </a> 
                                 </sec:authorize>
                             </div>
                         </div>
                     </div>
-                                    <c:choose>
-                            <c:when test="${myShipments}">
-                                <a href="/Kurierzy/employee/myShipments">
+                    <c:choose>
+                        <c:when test="${myShipments}">
+                            <a href="/Kurierzy/employee/myShipments">
                                 <button class="btn btn-lg btn-default btn-block"> 
                                     <span class="glyphicon  glyphicon-arrow-left"> </span> 
                                     Back to the previous page
                                 </button>
                             </a>
-                            </c:when>
-                            <c:when test="${client}">
-                                <form:form action="myRequest" method="POST">
-                                        <input hidden="true" name="requestId" value="${requestId}"/>
-                                        <button type="submit" class="btn btn-lg btn-default btn-block" value="${requestId}"><span class="glyphicon  glyphicon-arrow-left"> </span> 
+                        </c:when>
+                        <c:when test="${client}">
+                            <form:form action="myRequest" method="POST">
+                                <input hidden="true" name="requestId" value="${requestId}"/>
+                                <button type="submit" class="btn btn-lg btn-default btn-block" value="${requestId}"><span class="glyphicon  glyphicon-arrow-left"> </span> 
                                     Back to the previous page</button>      
-                                    </form:form>
+                                </form:form>
                             </c:when>
                             <c:otherwise>
-                                                          <a href="/Kurierzy/shipment/showAll">
+                            <a href="/Kurierzy/shipment/showAll">
                                 <button class="btn btn-lg btn-default btn-block"> 
                                     <span class="glyphicon  glyphicon-arrow-left"> </span> 
                                     Back to the previous page
                                 </button>
                             </a>  
-                            </c:otherwise>
-                        </c:choose>   
+                        </c:otherwise>
+                    </c:choose>   
                 </div>
 
             </div>

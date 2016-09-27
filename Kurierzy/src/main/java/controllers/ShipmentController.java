@@ -8,6 +8,8 @@ package controllers;
 import javax.validation.Valid;
 import model.City;
 import model.Employee;
+import model.Request;
+import model.RequestStatus;
 import model.Shipment;
 import model.ShipmentStatus;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +17,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import service.CityService;
 
 import service.EmployeeService;
+import service.RequestService;
+import service.RequestStatusService;
 import service.ShipmentService;
 import service.ShipmentStatusService;
 
@@ -43,6 +48,12 @@ public class ShipmentController {
 
     @Autowired
     CityService cityService;
+    
+    @Autowired
+    RequestService requestService;
+    
+    @Autowired
+    RequestStatusService requestStatusService;
 
     @RequestMapping("/showAll")
     public String showAll(Model model) {
@@ -145,5 +156,20 @@ public class ShipmentController {
         }
 
         return "shipment/show";
+    }
+    
+    @RequestMapping("/{id}/showRequest")
+    public String showRequest(@PathVariable("id") Integer id, Model model){
+        
+        Iterable<Request> requests = requestService.findByShipmentId(id);
+        Iterable<RequestStatus> requestStatuses = requestStatusService.findAll();
+        
+        System.out.println("@@@Shipment id: " + id);
+        for(Request request : requestService.findByShipmentId(id) ){
+            System.out.println("@@REQUEST " + request.getId());
+        }
+        model.addAttribute("requests", requests);
+        model.addAttribute("requestStatuses",requestStatuses);
+        return "request/showAll";
     }
 }
