@@ -43,12 +43,12 @@
                                                 href=" <spring:url value="/employee/show?id=${request.shipment.employee.id}&back=requests" /> ">${request.shipment.employee.email}</a>
                                         </p>
                                         <p>
-                                            <form:form action="edit" method="POST">
+                                            <form:form action="/Kurierzy/request/edit" method="POST">
                                                 <input hidden="true" name="requestId" value="${request.id}"/>
                                                 <input type="submit" class="btn btn-lg btn-success btn-block"
                                                        value="Edit">
                                             </form:form>
-                                            <form:form action="delete" method="POST">
+                                            <form:form action="/Kurierzy/request/delete" method="POST">
                                                 <input hidden="true" name="requestId" value="${request.id}"/>
                                                 <input type="submit" class="btn btn-lg btn-danger btn-block"
                                                        value="Delete">
